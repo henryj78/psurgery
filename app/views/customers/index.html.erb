@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Customers</h1>
+
+<ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'View customers', customers_path %></li>
+  <li><%= link_to 'New customer', new_customer_path %></li>
+</ul>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.first_name  + " " + customer.last_name %></td>
+        <td><%= customer.city %></td>
+        <td><%= link_to 'Detail', customer, class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_customer_path(customer), class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'County', '', class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Device', '', class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Deactivate', '', class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?'} if !customer.validate_cus.nil? %></td>
+        <td><%= link_to 'Activate','', class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure? Your name and date will be recorded' }  if customer.validate_cus.nil? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to new_customer_path, class: 'btn btn-success' do %>
+  <i class="glyphicon glyphicon-plus"></i> New Customer
+<% end %>

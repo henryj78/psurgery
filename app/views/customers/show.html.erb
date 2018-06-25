@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>First name:</strong>
+  <%= @customer.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @customer.last_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @customer.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @customer.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @customer.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @customer.zip %>
+</p>
+
+<p>
+  <strong>Cell number:</strong>
+  <%= @customer.cell_number %>
+</p>
+
+<p>
+  <strong>Office number:</strong>
+  <%= @customer.office_number %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @customer.description %>
+</p>
+
+<p>
+  <strong>Customer url:</strong>
+  <%= @customer.customer_url %>
+</p>
+
+<p>
+  <strong>Boardcertified:</strong>
+  <%= @customer.boardcertified %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @customer.status_id %>
+</p>
+
+<p>
+  <strong>Zone:</strong>
+  <%= @customer.zone_id %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @customer.state_id %>
+</p>
+
+<p>
+  <strong>Sale:</strong>
+  <%= @customer.sale_id %>
+</p>
+
+<p>
+  <strong>Validate cus:</strong>
+  <%= @customer.validate_cus %>
+</p>
+
+<p>
+  <strong>Deactivate:</strong>
+  <%= @customer.deactivate %>
+</p>
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
