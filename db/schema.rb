@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_25_053108) do
+ActiveRecord::Schema.define(version: 2018_06_27_173017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,54 @@ ActiveRecord::Schema.define(version: 2018_06_25_053108) do
     t.integer "sale_id"
     t.integer "validate_cus"
     t.string "deactivate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.integer "customer_id"
+    t.string "ip_address"
+    t.string "zipcode"
+    t.string "os"
+    t.string "model"
+    t.string "browser"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "type_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.string "full_name"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "territory"
+    t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "zipcodes", force: :cascade do |t|
+    t.string "zip_code"
+    t.string "latitude"
+    t.string "longitutde"
+    t.string "county"
+    t.string "country"
+    t.string "state"
+    t.string "city"
+    t.string "zipcode_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "zones", force: :cascade do |t|
+    t.string "county"
+    t.string "state"
+    t.integer "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,0 +1,26 @@
+<%= form_for(@zipcode, html: {class: 'form-horizontal'}) do |f| %>
+    <% if @zipcode.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(customer.errors.count, "error") %> Error occurred while searching zipcodes </h2>
+
+        <ul>
+        <% @zipcode.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= f.label 'Enter Zipcode', class: "col-md-2 control-label"  %>
+      <div class="col-sm-10">
+        <%= f.text_field :zip_code, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="actions form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+       <%= f.submit "Locate Customer" %>
+      </div>
+    </div>
+  <% end %>

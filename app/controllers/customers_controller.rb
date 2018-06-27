@@ -43,15 +43,15 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1.json
   def update
     respond_to do |format|
-      if @customer.update(customer_params)
-        flash[:success] = 'Customer was successfully updated.'
-        format.html { redirect_to @customer }
-        format.json { render :show, status: :ok, location: @customer }
-      else
-        flash[:danger] = 'There was a problem updating the customer.'
-        format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+      # if @customer.update(customer_params)
+      #   flash[:success] = 'Customer was successfully updated.'
+      #   format.html { redirect_to @customer }
+      #   format.json { render :show, status: :ok, location: @customer }
+      # else
+      #   flash[:danger] = 'There was a problem updating the customer.'
+      #   format.html { render :edit }
+      #   format.json { render json: @customer.errors, status: :unprocessable_entity }
+      # end
     end
   end
 
