@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  county: MyString
+  state: MyString
+  customer_id: 1
+
+two:
+  county: MyString
+  state: MyString
+  customer_id: 1
