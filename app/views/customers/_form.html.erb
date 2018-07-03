@@ -78,7 +78,7 @@
   <div class="field form-group">
     <%= form.label :boardcertified, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= check_box_tag "name", :boardcertified, false, class: 'form-control' %>
+      <%= form.check_box :boardcertified, {:class => "myclass", :style => "mystyle"}, "yes", "no" %>
     </div>
   </div>
 
@@ -89,12 +89,12 @@
     </div>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
    <%= form.label 'Sales Person',class: 'col-sm-2 control-label' %>
    <%= form.collection_select :sale_id, Sale.order(:full_name),:id,:full_name, include_blank: true, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
    <%= form.label 'Role', class: 'col-sm-2 control-label' %>
    <%= form.collection_select :status_id, Role.order(:type_description),:id,:type_description, include_blank: true, class: 'form-control'%>
  </div>

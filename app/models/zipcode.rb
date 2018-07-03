@@ -12,8 +12,10 @@ class Zipcode < ApplicationRecord
 
   def self.find_url(customer)
     customer_url = nil
-    zone = Zone.where(county: customer[0].county, state: customer[0].state)
-    customer_url = zone[0].customer if !zone.empty?
+    if !customer.empty?
+     zone = Zone.where(county: customer[0].county, state: customer[0].state)
+     customer_url = zone[0].customer if !zone.empty?
+    end
   end
 
   def self.write_device(device, custid)
