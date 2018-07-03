@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_27_173017) do
+ActiveRecord::Schema.define(version: 2018_07_01_222424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "counties", force: :cascade do |t|
+    t.string "name"
+    t.integer "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
@@ -35,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_06_27_173017) do
     t.string "deactivate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role_id"
   end
 
   create_table "devices", force: :cascade do |t|
@@ -60,6 +68,12 @@ ActiveRecord::Schema.define(version: 2018_06_27_173017) do
     t.string "last_name"
     t.string "territory"
     t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

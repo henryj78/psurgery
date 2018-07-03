@@ -25,7 +25,6 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     @customer = Customer.new(customer_params)
-
     respond_to do |format|
       if @customer.save
         flash[:success] = 'Customer was successfully created.'
@@ -43,15 +42,15 @@ class CustomersController < ApplicationController
   # PATCH/PUT /customers/1.json
   def update
     respond_to do |format|
-      # if @customer.update(customer_params)
-      #   flash[:success] = 'Customer was successfully updated.'
-      #   format.html { redirect_to @customer }
-      #   format.json { render :show, status: :ok, location: @customer }
-      # else
-      #   flash[:danger] = 'There was a problem updating the customer.'
-      #   format.html { render :edit }
-      #   format.json { render json: @customer.errors, status: :unprocessable_entity }
-      # end
+      if @customer.update(customer_params)
+        flash[:success] = 'Customer was successfully updated.'
+        format.html { redirect_to @customer }
+        format.json { render :show, status: :ok, location: @customer }
+      else
+        flash[:danger] = 'There was a problem updating the customer.'
+        format.html { render :edit }
+        format.json { render json: @customer.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -67,6 +66,47 @@ class CustomersController < ApplicationController
     end
   end
 
+  def customer_county
+    customer = Customer.find(params[:customer_id].to_i)
+    @customers_name = customer.first_name + " " + customer.last_name
+    @customers = Zone.where( customer_id: params[:customer_id].to_i)
+  end
+
+  def add_county
+   @customer = Customer.new
+  end
+
+  def update_county
+    Customer.write_addtional_zone(params)
+    redirect_to customers_url
+  end
+
+  def customer_device
+   customer = Customer.find(params[:customer_id].to_i)
+   @customers_name = customer.first_name + " " + customer.last_name
+   @customers = customer.devices
+  end
+
+  def customer_build
+    Customer.retrieve_zone_id(@customer)
+  end
+
+  def validate
+   #Customer.write_track_record(current_user)
+   Customer.write_customer_validation(params)
+   redirect_to customers_url
+  end
+
+  def deactivate
+   @customer = Customer.find_by_id(params[:customer_id].to_i)
+   Customer.deativate_customer(@customer)
+   redirect_to customers_url
+  end
+
+def deativate_note
+  Customer.update_deativate_note(params)
+  redirect_to customers_url
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
