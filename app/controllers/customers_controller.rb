@@ -99,14 +99,20 @@ class CustomersController < ApplicationController
 
   def deactivate
    @customer = Customer.find_by_id(params[:customer_id].to_i)
-   Customer.deativate_customer(@customer)
+  end
+
+
+  def deativate_note
+   Customer.deativate_customer(params)
+   Customer.remove_customer_zone(params)
    redirect_to customers_url
   end
 
-def deativate_note
-  Customer.update_deativate_note(params)
-  redirect_to customers_url
-end
+  def remove_zone_id
+    Customer.removecusid(params)
+    redirect_to customers_url
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -7,10 +7,13 @@ Rails.application.routes.draw do
     get   'deactivate'
     post  'update_county'
     patch 'deativate_note'
+    get   'remove_zone_id'
   end
 
   resources :zipcodes do
     get 'customer'
   end
+
+  get "/location" => "application#location"
   root "zipcodes#customer"
 end

@@ -66,8 +66,27 @@ def self.write_customer_to_zone (customer)
  end
 
  def self.deativate_customer(customer)
-   db = Customer.find(customer.id)
+   db = Customer.find(customer[:customer_id].to_i)
+   db.deactivate = customer[:customer][:deactivate]
    db.validate_cus = nil
    db.save(:validate => false)
+ end
+
+ def self.remove_customer_zone(customer)
+   customerid = customer[:customer_id].to_i
+   county = Zone.where(customer_id: customerid)
+   county.each do |i|
+     if customerid == i.customer_id
+        i.customer_id = nil
+        i.save(:validate => false)
+     end
+   end
+ end
+
+ def self.removecusid(zone)
+   zoneid = zone[:customer_id].to_i
+   change_zone = Zone.find(zoneid)
+   change_zone.customer_id = nil
+   change_zone.save(:validate => false)
  end
 end
