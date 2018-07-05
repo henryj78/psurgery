@@ -27,7 +27,7 @@
         <td><%= customer.county %></td>
         <td><%= customer.state %></td>
         <td><%= customer.customer_id %></td>
-        <td><%= link_to 'Delete',  '' %></td>
+        <td><%= link_to 'Delete',  customer_remove_zone_id_path(customer) %></td>
       </tr>
     <% end %>
   </tbody>

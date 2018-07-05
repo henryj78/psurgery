@@ -25,8 +25,8 @@
         <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
         <td><%= link_to 'County', customer_customer_county_path(customer) %></td>
         <td><%= link_to 'Device', customer_customer_device_path(customer) %></td>
-        <td><%= link_to 'Deactivate', customer_deactivate_path(customer),  data: { confirm: 'Are you sure?'} if !customer.validate_cus.nil? %></td>
-        <td><%= link_to 'Activate', customer_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' }  if customer.validate_cus.nil? %></td>
+        <td><%= link_to 'Deactivate', customer_deactivate_path(customer),  data: { confirm: 'Are you sure?'} if !customer.validate_cus.nil? %>
+        <%= link_to 'Activate', customer_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' }  if customer.validate_cus.nil? %></td>
       </tr>
     <% end %>
   </tbody>
