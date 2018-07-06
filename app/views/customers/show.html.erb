@@ -1,5 +1,13 @@
 <p id="notice"><%= notice %></p>
 
+<ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'Detail', '' %></li>
+  <li><%= link_to 'Edit Customer', edit_customer_path(@customer) %></li>
+  <li><%= link_to 'View Customer', customers_path %></li>
+</ul>
+
+<br />
+
 <p>
   <strong>First name:</strong>
   <%= @customer.first_name %>

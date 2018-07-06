@@ -13,7 +13,14 @@ class ZipcodesController < ApplicationController
 
   def customer
     @zipcode = Zipcode.new
+    @lat = request.location.latitude
+    @long = request.location.longitude
+
+    if @lat != 0
+      # get doctor
+    end
   end
+
 
   private
 

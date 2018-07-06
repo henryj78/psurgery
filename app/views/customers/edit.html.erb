@@ -1,5 +1,13 @@
 <h1>Editing Customer</h1>
 
+<ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'Edit Customer', '' %></li>
+  <li><%= link_to 'Detail', @customer %></li>
+  <li><%= link_to 'View Customer', customers_path %></li>
+</ul>
+
+<br />
+
 <%= render 'form', customer: @customer %>
 
 <%= link_to 'Show', @customer %> |
