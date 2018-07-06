@@ -92,7 +92,7 @@ class CustomersController < ApplicationController
   end
 
   def validate
-   #Customer.write_track_record(current_user)
+   Customer.write_track_record(current_user)
    Customer.write_customer_validation(params)
    redirect_to customers_url
   end

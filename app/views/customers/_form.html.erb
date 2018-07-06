@@ -1,4 +1,3 @@
-<%#= form_with(model: customer, local: true) do |form| %>
 <%= form_for(@customer, html: {class: 'form-horizontal'}) do |form| %>
   <% if customer.errors.any? %>
     <div id="error_explanation">
