@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  get 'track/index'
   devise_for :users
+
+  resources :sales
+  resources :tracks
+  
   resources :customers do
     get   'customer_county'
     get   'customer_device'

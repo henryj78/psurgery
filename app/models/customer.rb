@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+ validates :first_name, :last_name, :zip, :customer_url,  :presence => true
+
  has_many :zones
  has_many :devices
 
