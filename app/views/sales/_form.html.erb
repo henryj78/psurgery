@@ -1,0 +1,47 @@
+<%= form_with(model: sale, local: true) do |form| %>
+  <% if sale.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sale.errors.count, "error") %> prohibited this sale from being saved:</h2>
+
+      <ul>
+      <% sale.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <ul class="nav nav-pills" role="tablist">
+     <li class="active"><%= link_to 'Edit', '' %></li>
+     <li><%= link_to 'Saleperson', sales_path %></li>
+  </ul>
+
+  <br />
+
+  <div class="field form-group">
+    <%= form.label :first_name,  class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+     <%= form.text_field :first_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :last_name, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :last_name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :territory, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :territory, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+     <%= form.submit %>
+    </div>
+  </div>
+<% end %>
