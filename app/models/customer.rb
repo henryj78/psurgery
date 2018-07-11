@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
  has_many :devices
 
   # TODO Testing Development enviroment - customer
-  # establish_connection :external_database
+   establish_connection :external_database
 
 def self.write_customer_to_zone (customer)
   db = Zone.find(customer.zone_id)
@@ -48,8 +48,16 @@ def self.write_customer_to_zone (customer)
    county = County.find(customer[:customer][:zone_id].to_i)
    state  = State.find(customer[:customer][:state_id].to_i)
    db = Zone.where(county: county.name, state: state.name)
-   db[0].customer_id = customer[:customer_id].to_i
-   db[0].save(:validate => false)
+
+   # Check is zone is being useed
+   if db[0].customer_id.nil?
+    db[0].customer_id = customer[:customer_id].to_i
+    db[0].save(:validate => false)
+    cus = true
+   else
+     cus = false
+   end
+   return cus
  end
 
  def self.write_track_record(customer)
@@ -64,6 +72,7 @@ def self.write_customer_to_zone (customer)
  def self.write_customer_validation(customer)
   cust = Customer.find(customer[:customer_id].to_i)
   cust.validate_cus = 1
+  cust.status_id = 1 if cust.status_id == 3
   cust.save(:validate => false)
  end
 
@@ -72,6 +81,11 @@ def self.write_customer_to_zone (customer)
    db.deactivate = customer[:customer][:deactivate]
    db.validate_cus = nil
    db.save(:validate => false)
+ end
+
+ def self.hold_customer(customer)
+   customer.validate_cus = nil
+   customer.save(:validate => false)
  end
 
  def self.remove_customer_zone(customer)
@@ -91,4 +105,5 @@ def self.write_customer_to_zone (customer)
    change_zone.customer_id = nil
    change_zone.save(:validate => false)
  end
+
 end

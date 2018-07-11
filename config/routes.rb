@@ -4,12 +4,13 @@ Rails.application.routes.draw do
 
   resources :sales
   resources :tracks
-  
+
   resources :customers do
     get   'customer_county'
     get   'customer_device'
     get   'add_county'
     get   'validate'
+    get   'hold_validate'
     get   'deactivate'
     post  'update_county'
     patch 'deativate_note'
