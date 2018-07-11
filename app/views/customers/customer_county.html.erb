@@ -27,7 +27,7 @@
         <td><%= customer.county %></td>
         <td><%= customer.state %></td>
         <td><%= customer.customer_id %></td>
-        <td><%= link_to 'Delete',  customer_remove_zone_id_path(customer) %></td>
+        <td><%= link_to 'Delete',  customer_remove_zone_id_path(customer),  data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -35,7 +35,6 @@
 
 <br>
 
-
-<%= link_to customer_add_county_path, class: 'btn btn-success' do %>
+<%= link_to customer_add_county_path,class: 'btn btn-success' do %>
   <i class="glyphicon glyphicon-plus"></i> Add County
 <% end %>

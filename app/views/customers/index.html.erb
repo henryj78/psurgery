@@ -29,12 +29,22 @@
          <% if !customer.validate_cus.nil? %>
           <td><%= link_to 'County', customer_customer_county_path(customer) %></td>
          <% else %>
-           <td>County</td>
+           <td><font color=red>County</font></td>
          <% end %>
 
+         <%  #TODO Needs be refactor - Time permitting %>
+
         <td><%= link_to 'Device', customer_customer_device_path(customer) %></td>
-        <td><%= link_to 'Deactivate', customer_deactivate_path(customer),  data: { confirm: 'Are you sure?'} if !customer.validate_cus.nil? %>
-        <%= link_to 'Activate', customer_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' }  if customer.validate_cus.nil? %></td>
+
+        <% if !customer.validate_cus.nil? %>
+          <!-- Hold Status -->
+          <td><%= link_to 'On', customer_deactivate_path(customer),  data: { confirm: 'Are you sure?'} if customer.status_id == 1 %>
+          <%= link_to 'Hold', customer_hold_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' } if customer.status_id == 3 %>
+          <font color=red><%= 'Demo' if customer.status_id == 2 %></font></td>
+        <% else %>
+          <td><%= link_to 'Off', customer_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' } if customer.status_id != 3 %>
+            <%= link_to 'Hold', customer_hold_validate_path(customer),  data: { confirm: 'Are you sure? Your name and date will be recorded' } if customer.status_id == 3 %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

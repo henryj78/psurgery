@@ -3,5 +3,5 @@ class Zone < ApplicationRecord
   has_many :states
 
   # TODO Testing Development enviroment - zones
-  # establish_connection :external_database
+   establish_connection :external_database
 end

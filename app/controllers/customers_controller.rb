@@ -4,12 +4,18 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    @customers = Customer.all.order({first_name: :asc}, {last_name: :asc})
   end
 
   # GET /customers/1
   # GET /customers/1.json
   def show
+    begin
+     @salesperson_name = Sale.find(@customer.sale_id.to_i).full_name
+     @role_name = Role.find(@customer.status_id.to_i).type_description
+     Customer.hold_customer(@customer) if @customer.status_id == 3
+   rescue
+   end
   end
 
   # GET /customers/new
@@ -77,7 +83,9 @@ class CustomersController < ApplicationController
   end
 
   def update_county
-    Customer.write_addtional_zone(params)
+    cusvaild = Customer.write_addtional_zone(params)
+    flash[:notice] = 'This county is saved by another customer' if cusvaild == false
+    flash[:notice] = 'This county has been saved ' if cusvaild == true
     redirect_to customers_url
   end
 
@@ -95,6 +103,11 @@ class CustomersController < ApplicationController
    Customer.write_track_record(current_user)
    Customer.write_customer_validation(params)
    redirect_to customers_url
+  end
+
+  def hold_validate
+    Customer.write_customer_validation(params)
+    redirect_to customers_url
   end
 
   def deactivate
@@ -119,6 +132,7 @@ class CustomersController < ApplicationController
     def set_customer
       @customer = Customer.find(params[:id])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params

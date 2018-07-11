@@ -19,6 +19,16 @@
 
   <br />
 
+  <p>
+    <strong>Time:</strong>
+    <font color=blue><%= Time.new %></font>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <font color=blue><%= current_user.email %></font>
+  </p>
+
    <div class="field form-group">
      <%= f.label 'Deactivate Notes' %>
      <%= f.text_field :deactivate, class: 'form-control' %>
@@ -27,7 +37,7 @@
 
   <div class="actions form-group">
     <div class="col-sm-offset-2 col-sm-10">
-     <%= f.submit "Save Note" %>
+     <%= f.submit "Save Note", data: { confirm: 'Are you sure?' } %>
     </div>
   </div>
 <% end %>
