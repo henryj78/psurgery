@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  after_action  :track_create_user, only: [:create ]
+  after_action  :track_edit_user, only: [:update ]
 
   # GET /customers
   # GET /customers.json
@@ -84,8 +86,16 @@ class CustomersController < ApplicationController
 
   def update_county
     cusvaild = Customer.write_addtional_zone(params)
-    flash[:notice] = 'This county is saved by another customer' if cusvaild == false
-    flash[:notice] = 'This county has been saved ' if cusvaild == true
+    flash[:notice] = 'This county is saved by another customer' if cusvaild == 0
+
+    if cusvaild != 0
+     screen = "County Add"
+     command = "County Added"
+     @customer = Customer.find(cusvaild.to_i)
+     Customer.write_track_record(current_user, screen, command, @customer )
+     flash[:notice] = 'This county has been saved '
+    end
+
     redirect_to customers_url
   end
 
@@ -100,12 +110,22 @@ class CustomersController < ApplicationController
   end
 
   def validate
-   Customer.write_track_record(current_user)
+    screen = "Customer Validation"
+    command = "Validated Customer"
+
+   @customer = Customer.find_by_id(params[:customer_id].to_i)
+   Customer.write_track_record(current_user, screen, command, @customer)
    Customer.write_customer_validation(params)
    redirect_to customers_url
   end
 
+
   def hold_validate
+    screen = "Customer "
+    command = "Remove Hold"
+
+    @customer = Customer.find_by_id(params[:customer_id].to_i)
+    Customer.write_track_record(current_user, screen, command, @customer)
     Customer.write_customer_validation(params)
     redirect_to customers_url
   end
@@ -118,11 +138,26 @@ class CustomersController < ApplicationController
   def deativate_note
    Customer.deativate_customer(params)
    Customer.remove_customer_zone(params)
+
+   screen = "Customer"
+   command = "Deativate Customer"
+   @customer = Customer.find_by_id(params[:customer_id].to_i)
+   Customer.write_track_record(current_user, screen, command, @customer )
+
    redirect_to customers_url
   end
 
   def remove_zone_id
-    Customer.removecusid(params)
+     custid = params[:customer_id].to_i
+     zone = Zone.find(custid)
+     zone_custid = zone.customer_id
+
+     screen = "County Delete"
+     command = "County Deleted"
+     @customer = Customer.find(zone_custid.to_i)
+     Customer.write_track_record(current_user, screen, command, @customer )
+
+     Customer.removecusid(params)
     redirect_to customers_url
   end
 
@@ -133,6 +168,17 @@ class CustomersController < ApplicationController
       @customer = Customer.find(params[:id])
     end
 
+    def track_create_user
+      screen = "Customer Add New"
+      command = "Created Customer"
+      Customer.write_track_record(current_user, screen, command, @customer )
+    end
+
+    def track_edit_user
+      screen = "Customer edit"
+      command = "Edit Customer"
+      Customer.write_track_record(current_user, screen, command, @customer )
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
