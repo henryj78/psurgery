@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_11_200156) do
+ActiveRecord::Schema.define(version: 2018_07_12_180424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 2018_07_11_200156) do
     t.string "browser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ipad"
+    t.string "iphone"
+    t.string "mobile"
+    t.string "surface"
+    t.string "tablet"
+    t.string "platform_name"
+    t.string "platform_version"
+    t.string "android"
+    t.string "platform_ios"
+    t.string "linux"
+    t.string "mac_platform"
+    t.string "other_platform"
+    t.string "windows_platform"
+    t.string "windows_mobile"
+    t.string "windows_phone"
   end
 
   create_table "roles", force: :cascade do |t|
