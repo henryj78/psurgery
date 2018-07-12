@@ -28,6 +28,22 @@ class Zipcode < ApplicationRecord
    db = Device.new
    db.customer_id = custid
    db.browser = device.name
+
+   db.ipad  = device.device.ipad?
+   db.iphone = device.device.iphone?
+   db.mobile = device.device.mobile?
+   db.surface = device.device.surface?
+   db.tablet = device.device.tablet?
+   db.platform_name = device.platform.name
+   db.platform_version = device.platform.version
+   db.android = device.platform.android?(4.2)
+   db.platform_ios = device.platform.ios?
+   db.linux = device.platform.linux?
+   db.mac_platform = device.platform.mac?
+   db.other_platform = device.platform.other?
+   db.windows_platform = device.platform.windows?
+   db.windows_mobile = device.platform.windows_mobile?
+   db.windows_phone = device.platform.windows_phone?
    db.save
   end
 

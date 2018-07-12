@@ -13,11 +13,13 @@
       <td><font color=blue><%= @customers_name %></font></td>
     <tr>
     <tr>
-      <th style="margin:2px; width:auto;" cellspacing="2">IP_Address</th>
-      <th style="margin:2px; width:auto;" cellspacing="2">ZipCode</th>
-      <th style="margin:2px; width:auto;" cellspacing="2">OS</th>
-      <th style="margin:2px; width:auto;" cellspacing="2">Model</th>
       <th style="margin:2px; width:auto;" cellspacing="2">Browser</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">mobile</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">surface</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">platform_name</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">platform_version</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">android</th>
+      <th style="margin:2px; width:auto;" cellspacing="2">platform_ios</th>
       <th style="margin:2px; width:auto;" cellspacing="2">TimeStamp</th>
       <th colspan="3"></th>
     </tr>
@@ -26,11 +28,13 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= customer.ip_address %></td>
-        <td><%= customer.zipcode %></td>
-        <td><%= customer.os %></td>
-        <td><%= customer.model %></td>
         <td><%= customer.browser %></td>
+        <td><%= customer.mobile %></td>
+        <td><%= customer.surface %></td>
+        <td><%= customer.platform_name %></td>
+        <td><%= customer.platform_version %></td>
+        <td><%= customer.android %></td>
+        <td><%= customer.platform_ios %></td>
         <td><%= customer.created_at %></td>
       </tr>
     <% end %>
