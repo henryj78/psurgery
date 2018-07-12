@@ -53,19 +53,21 @@ def self.write_customer_to_zone (customer)
    if db[0].customer_id.nil?
     db[0].customer_id = customer[:customer_id].to_i
     db[0].save(:validate => false)
-    cus = true
+
+    cus = customer[:customer_id].to_i
    else
-     cus = false
+     cus = 0
    end
    return cus
  end
 
- def self.write_track_record(customer)
+ def self.write_track_record(customer, screen, command, customer_name)
    track_db = Track.new
    track_db.user_id = customer.id
    track_db.name = customer.email
-   track_db.screen = "Customer Validation"
-   track_db.command = "Validated Customer"
+   track_db.screen = screen
+   track_db.command = command
+   track_db.customer_name = customer_name.first_name + " " + customer_name.last_name
    track_db.save
  end
 
