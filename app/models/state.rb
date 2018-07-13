@@ -3,6 +3,6 @@ class State < ApplicationRecord
   has_many :counties
 
   # TODO Testing Development enviroment - state
-   establish_connection :external_database
+  # establish_connection :external_database
 
 end
