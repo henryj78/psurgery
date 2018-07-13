@@ -1,7 +1,7 @@
 class Zipcode < ApplicationRecord
   # TODO Find Customer url from zip code
   # TODO Testing Development enviroment - zipcode
-   establish_connection :external_database
+  # establish_connection :external_database
 
 
   def self.find_customer_url(search)

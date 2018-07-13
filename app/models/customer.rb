@@ -5,7 +5,7 @@ class Customer < ApplicationRecord
  has_many :devices
 
   # TODO Testing Development enviroment - customer
-   establish_connection :external_database
+  # establish_connection :external_database
 
 def self.write_customer_to_zone (customer)
   db = Zone.find(customer.zone_id)
