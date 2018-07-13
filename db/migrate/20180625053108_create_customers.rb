@@ -16,7 +16,6 @@ class CreateCustomers < ActiveRecord::Migration[5.2]
       t.integer :zone_id
       t.integer :state_id
       t.integer :sale_id
-      t.integer :role_id
       t.integer :validate_cus
       t.string :deactivate
 
