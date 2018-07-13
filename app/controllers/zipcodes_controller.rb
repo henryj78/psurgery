@@ -18,10 +18,14 @@ class ZipcodesController < ApplicationController
 
     latitude = request.location.latitude
     longitude = request.location.longitude
+
+    puts "Latitude" + " : " + latitude.to_s
+    puts "Longitude" + " : " + longitude.to_s
+
     @ip = request.location.ip
 
-    if latitude == 0
-      # get doctor
+    if latitude == 0 && longitude == 0
+      # get zip screen
     else
       zip = Geocoder.search([latitude, longitude]).first.postal_code
       uri = Zipcode.find_customer_url(zip.to_i)
