@@ -39,6 +39,6 @@ class ZipcodesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def zipcode_params
-   params.require(:zipcode).permit(:zip_code, :latitude, :longitute, :county, :country, :state, :city, :zipcode_type)
+   params.require(:zipcode).permit(:zip_code, :latitude, :longitude, :county, :country, :state, :city, :zipcode_type)
   end
 end
