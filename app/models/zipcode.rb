@@ -13,15 +13,18 @@ class Zipcode < ApplicationRecord
   def self.find_url(customer)
     customer_url = nil
     begin
-     zone = Zone.where(county: customer[0].county, state: customer[0].state)
-     if !zone.empty?
-      custid = zone[0].customer_id
-      @cus_check = Customer.find(custid)
-      Zipcode.covert_demo if @cus_check.status_id == 2
-      customer_url = zone[0].customer if @cus_check.status_id != 3
+      zone = Zone.where(county: customer[0].county, state: customer[0].state)
+      if !zone.empty?
+       custid = zone[0].customer_id
+       @cus_check = Customer.find(custid)
+       Zipcode.covert_demo if @cus_check.status_id == 2
+       customer_url = zone[0].customer if @cus_check.status_id != 3
+      end
+      rescue StandardError => e
+        puts "********************** rescue error"
+        puts e.message
+        puts e.backtrace.inspect
      end
-   rescue
-   end
   end
 
   def self.write_device(device, custid)

@@ -14,15 +14,15 @@ class ZipcodesController < ApplicationController
   def customer
     @zipcode = Zipcode.new
 
-    latitude = request.location.latitude
+    latitude =  request.location.latitude
     longitude = request.location.longitude
 
     puts "Latitude" + " : " + latitude.to_s
     puts "Longitude" + " : " + longitude.to_s
 
     @ip = request.location.ip
-
-    if latitude == 0 && longitude == 0
+   begin
+    if latitude == 0 || longitude == 0
       # get zip screen
     else
       zip = Geocoder.search([latitude, longitude]).first.postal_code
@@ -30,6 +30,11 @@ class ZipcodesController < ApplicationController
       Zipcode.write_device(browser, uri.id) if !uri.nil?
       redirect_to(uri.customer_url.to_s) if !uri.nil?
     end
+    rescue StandardError => e
+      puts "********************** rescue error"
+      puts e.message
+      puts e.backtrace.inspect
+   end
   end
 
 
