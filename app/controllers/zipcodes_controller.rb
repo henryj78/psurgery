@@ -10,11 +10,11 @@ class ZipcodesController < ApplicationController
     redirect_to(uri.customer_url.to_s) if !uri.nil?
   end
 
+  def index
+  end
 
   def customer
     @zipcode = Zipcode.new
-    # latitude = "34.14"    #request.location.latitude
-    # longitude = "-117.51" #request.location.longitude
 
     latitude = request.location.latitude
     longitude = request.location.longitude
