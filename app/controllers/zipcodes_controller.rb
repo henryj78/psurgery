@@ -10,8 +10,6 @@ class ZipcodesController < ApplicationController
     redirect_to(uri.customer_url.to_s) if !uri.nil?
   end
 
-  def index
-  end
 
   def customer
     @zipcode = Zipcode.new
