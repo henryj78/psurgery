@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  after_action :set_customer_payment, only: [:index]
   after_action  :track_create_user, only: [:create ]
   after_action  :track_edit_user, only: [:update ]
 
@@ -93,7 +94,7 @@ class CustomersController < ApplicationController
      command = "County Added"
      @customer = Customer.find(cusvaild.to_i)
      Customer.write_track_record(current_user, screen, command, @customer )
-     flash[:notice] = 'This county has been saved '
+     flash[:notice] = 'This county has been saved'
     end
 
     redirect_to customers_url
@@ -166,6 +167,11 @@ class CustomersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
       @customer = Customer.find(params[:id])
+    end
+
+    def set_customer_payment
+      @customer = Customer.all
+      Customer.payment_inspect(@customer)
     end
 
     def track_create_user

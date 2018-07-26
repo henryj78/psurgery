@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Customer Payments</h1> <br />
+
+<ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'View Customers', customers_path %></li>
+  <li><%= link_to 'Add Payment', payment_add_payment_path %></li>
+</ul>
+
+<br />
+
+<p></p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td><font color= blue><%= @customers_name %></font></td>
+    <tr>
+
+    <tr><td> &nbsp</td></tr>
+
+    <tr>
+      <th>Payment Amount</th>
+      <th>Customer Id</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td><%= payment.payment_amount %></td>
+        <td><%= payment.custid %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br />

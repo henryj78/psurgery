@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get 'track/index'
   devise_for :users
 
   resources :sales
   resources :tracks
+
+  resources :payments do
+    get 'retrieve_pay'
+    get   'add_payment'
+  end
 
   resources :customers do
     get   'customer_county'

@@ -108,4 +108,23 @@ def self.write_customer_to_zone (customer)
    change_zone.save(:validate => false)
  end
 
+ def self.payment_inspect(customer)
+   customer.each do |cus|
+     db = Customer.find(cus.id)
+     payvalue = Payment.where(custid: db.id)
+     db.payment_color = 0 if payvalue.empty?
+     db.payment_color = payment_color_choice(payvalue) if !payvalue.empty?
+     db.save(:validate => false)
+   end
+ end
+
+
+ def self.payment_color_choice(customer)
+  month = ((customer[0].created_at - Time.now)/1.day.second).to_i
+  p_color = 0 # no input
+  p_color = 1 if !customer[0].created_at.nil?
+  p_color = 2 if month.to_i <= -30 # 30 Days
+  p_color = 3 if month.to_i <= -60 # 60 Days
+  return p_color
+ end
 end
