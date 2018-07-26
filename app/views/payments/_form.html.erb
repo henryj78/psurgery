@@ -1,0 +1,26 @@
+<%= form_for(payment, html: {class: 'form-horizontal'}, :url => {:action => "create"}) do |form| %>
+  <% if payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+      <% payment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= form.label :payment_amount, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= form.text_field :payment_amount, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="actions form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+     <%= form.submit  data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+<% end %>

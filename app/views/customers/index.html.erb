@@ -25,14 +25,22 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
-        <td><%= customer.first_name  + " " + customer.last_name %></td>
+        <td>
+          <font color=blue><%= customer.first_name  + " " + customer.last_name if customer.payment_color.nil? %></font>
+          <font color=blue><%= customer.first_name  + " " + customer.last_name if customer.payment_color == 0 %></font>
+          <font color=green><%= customer.first_name  + " " + customer.last_name if customer.payment_color == 1 %></font>
+          <font color=#ffbf00><%= customer.first_name  + " " + customer.last_name if customer.payment_color == 2 %></font>
+          <font color=red><%= customer.first_name  + " " + customer.last_name if customer.payment_color == 3 %></font>
+        </td>
         <td><%= customer.city %></td>
         <td><%= link_to 'Detail', customer %></td>
         <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
 
          <% if !customer.validate_cus.nil? %>
+          <td><%= link_to 'Payment', payment_retrieve_pay_path(customer) %></td>
           <td><%= link_to 'County', customer_customer_county_path(customer) %></td>
          <% else %>
+           <td><font color=red>Payment</font></td>
            <td><font color=red>County</font></td>
          <% end %>
 
