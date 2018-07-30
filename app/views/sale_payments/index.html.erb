@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sales Payment</h1>
+
+ <ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'Salesperson', sales_path %></li>
+  <li><%= link_to 'View Customer', customers_path %></li>
+ </ul>
+
+<br />
+
+<table class="table">
+  <thead>
+    <tr>
+      <td><font color= blue><%= @salepayment_name %></font></td>
+    <tr>
+      <tr><td> &nbsp</td></tr>
+    <tr>
+      <th>Payment Amount</th>
+      <th>Payment Date</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @salepayment.each do |sale| %>
+      <tr style="font:Arial; font-size:10px" class="<%= cycle("even", "odd") %>" >
+        <td><%= sale.payment_amount %></td>
+        <td><%= sale.created_at %></td>
+        <td><%= sale.description %></td>
+        <td><%= link_to 'Edit',  edit_sale_payment_path(sale) %></td>
+        <td><%= link_to 'Delete', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sales Payment', new_sale_payment_path %>

@@ -114,6 +114,8 @@ def self.write_customer_to_zone (customer)
      payvalue = Payment.where(custid: db.id)
      db.payment_color = 0 if payvalue.empty?
      db.payment_color = payment_color_choice(payvalue) if !payvalue.empty?
+     db.county_count = 0 if cus.zones.empty?
+     db.county_count = 1 if !cus.zones.empty?
      db.save(:validate => false)
    end
  end
@@ -126,5 +128,15 @@ def self.write_customer_to_zone (customer)
   p_color = 2 if month.to_i <= -30 # 30 Days
   p_color = 3 if month.to_i <= -60 # 60 Days
   return p_color
+ end
+
+ def self.remove_zone(customer)
+   db = Zone.where(customer_id: customer.id)
+   if !db.empty?
+     db.each do |rz|
+       rz.customer_id = nil
+       rz.save(:validate => false)
+     end
+   end
  end
 end

@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  resources :sale_payments
   devise_for :users
 
-  resources :sales
+  resources :sales do
+    get 'customer_sales'
+  end
+
   resources :tracks
 
   resources :payments do

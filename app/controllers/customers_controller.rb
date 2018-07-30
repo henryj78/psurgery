@@ -67,6 +67,7 @@ class CustomersController < ApplicationController
   # DELETE /customers/1
   # DELETE /customers/1.json
   def destroy
+    Customer.remove_zone(@customer)
     @customer.destroy
     respond_to do |format|
       flash[:success] = 'Customer was successfully destroyed.'
