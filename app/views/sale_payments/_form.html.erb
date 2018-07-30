@@ -12,8 +12,7 @@
   <% end %>
 
   <ul class="nav nav-pills" role="tablist">
-     <li class="active"><%= link_to 'Edit', '' %></li>
-     <li><%= link_to 'Saleperson', sales_path %></li>
+    <li class="active"><%= link_to 'Saleperson', sales_path %></li>
   </ul>
 
   <br />
@@ -23,25 +22,19 @@
   <br />
 
   <div class="field form-group">
-    <%= form.label :first_name,  class: 'col-sm-2 control-label' %>
+    <%= form.label :payment_amount,  class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-     <%= form.text_field :first_name, class: 'form-control' %>
+     <%= form.text_field :payment_amount, class: 'form-control' %>
     </div>
   </div>
 
   <div class="field form-group">
-    <%= form.label :last_name, class: 'col-sm-2 control-label' %>
+    <%= form.label :description, class: 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= form.text_field :last_name, class: 'form-control' %>
+      <%= form.text_field :description, class: 'form-control' %>
     </div>
   </div>
 
-  <div class="field form-group">
-    <%= form.label :territory, class: 'col-sm-2 control-label' %>
-    <div class="col-sm-10">
-      <%= form.text_field :territory, class: 'form-control' %>
-    </div>
-  </div>
 
   <div class="actions form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -49,3 +42,5 @@
     </div>
   </div>
 <% end %>
+
+<br />

@@ -24,8 +24,8 @@
         <td><%= sale.first_name %></td>
         <td><%= sale.last_name %></td>
         <td><%= sale.territory %></td>
-        <td><%= link_to 'Payments', ''%></td>
-        <td><%= link_to 'Customers', ''%></td>
+        <td><%= link_to 'Payments',sale_payments_path(sale)%></td>
+        <td><%= link_to 'Customers', sale_customer_sales_path(sale.id) %></td>
         <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
         <td><%= link_to 'Delete', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

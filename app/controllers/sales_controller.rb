@@ -27,6 +27,7 @@ class SalesController < ApplicationController
     @sale = Sale.new(sale_params)
 
     respond_to do |format|
+      @sale.full_name = @sale.first_name + " " + @sale.last_name
       if @sale.save
         format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
         format.json { render :show, status: :created, location: @sale }
@@ -41,6 +42,7 @@ class SalesController < ApplicationController
   # PATCH/PUT /sales/1.json
   def update
     respond_to do |format|
+      @sale.full_name = @sale.first_name + " " + @sale.last_name
       if @sale.update(sale_params)
         format.html { redirect_to @sale, notice: 'Sale was successfully updated.' }
         format.json { render :show, status: :ok, location: @sale }
@@ -60,6 +62,13 @@ class SalesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def customer_sales
+    saleid = params[:sale_id].to_i
+    @customers_name = Sale.find(saleid).full_name
+    @customers = Customer.where(sale_id: saleid)
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
