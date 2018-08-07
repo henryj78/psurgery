@@ -8,12 +8,13 @@ class ZipcodesController < ApplicationController
     uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
     Zipcode.write_device(browser, uri.id) if !uri.nil?
     redirect_to(uri.customer_url.to_s) if !uri.nil?
+    redirect_to('https://lease.cosmeticsurgery.com/') if uri.nil?
   end
 
 
   def customer
     @zipcode = Zipcode.new
-
+  begin
     latitude =  request.location.latitude
     longitude = request.location.longitude
 
@@ -21,7 +22,7 @@ class ZipcodesController < ApplicationController
     puts "Longitude" + " : " + longitude.to_s
 
     @ip = request.location.ip
-   begin
+
     if latitude == 0 || longitude == 0
       # get zip screen
     else
@@ -35,6 +36,10 @@ class ZipcodesController < ApplicationController
       puts e.message
       puts e.backtrace.inspect
    end
+
+   def aws_hits
+   end
+
   end
 
 
