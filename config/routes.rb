@@ -23,10 +23,12 @@ Rails.application.routes.draw do
     post  'update_county'
     patch 'deativate_note'
     get   'remove_zone_id'
+    get   'report_status'
   end
 
   resources :zipcodes do
     get 'customer'
+    get 'aws_hits'
   end
 
   get "/location" => "application#location"

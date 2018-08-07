@@ -139,4 +139,11 @@ def self.write_customer_to_zone (customer)
      end
    end
  end
+
+ def self.report_calu
+   customer = []
+   nfds = 5
+   customer << nfds
+   return customer
+ end
 end

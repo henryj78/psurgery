@@ -107,6 +107,10 @@ class CustomersController < ApplicationController
    @customers = customer.devices
   end
 
+  def report_status
+    @customer = Customer.report_calu
+  end
+
   def customer_build
     Customer.retrieve_zone_id(@customer)
   end
