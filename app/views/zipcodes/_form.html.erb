@@ -11,16 +11,116 @@
       </div>
     <% end %>
 
-    <div class="field form-group">
-      <%= f.label 'Enter Zipcode', class: "col-md-2 control-label"  %>
-      <div class="col-sm-10">
-        <%= f.text_field :zip_code, class: "form-control" %>
-      </div>
-    </div>
 
-    <div class="actions form-group">
+
+    <!-- <div class="actions form-group">
       <div class="col-sm-offset-2 col-sm-10">
-       <%= f.submit "Locate Customer" %>
+       <%#= f.submit "Locate Customer" %>
       </div>
-    </div>
-  <% end %>
+    </div> -->
+
+
+  <!doctype html>
+  <html lang="en">
+  <head>
+  	<!-- Required meta tags -->
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1, , maximum-scale=2, user-scalable=yes, shrink-to-fit=no">
+
+  	<!-- Bootstrap CSS -->
+  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  	<link rel="stylesheet" href="_src/css/global.css">
+
+  	<title>CosmeticSurgery.com - Lease Opportunity</title>
+  	<link rel="apple-touch-icon" sizes="57x57" href="_src/img/favicon/apple-icon-57x57.png">
+  	<link rel="apple-touch-icon" sizes="60x60" href="_src/img/favicon/apple-icon-60x60.png">
+  	<link rel="apple-touch-icon" sizes="72x72" href="_src/img/favicon/apple-icon-72x72.png">
+  	<link rel="apple-touch-icon" sizes="76x76" href="_src/img/favicon/apple-icon-76x76.png">
+  	<link rel="apple-touch-icon" sizes="114x114" href="_src/img/favicon/apple-icon-114x114.png">
+  	<link rel="apple-touch-icon" sizes="120x120" href="_src/img/favicon/apple-icon-120x120.png">
+  	<link rel="apple-touch-icon" sizes="144x144" href="_src/img/favicon/apple-icon-144x144.png">
+  	<link rel="apple-touch-icon" sizes="152x152" href="_src/img/favicon/apple-icon-152x152.png">
+  	<link rel="apple-touch-icon" sizes="180x180" href="_src/img/favicon/apple-icon-180x180.png">
+  	<link rel="icon" type="image/png" sizes="192x192"  href="_src/img/favicon/android-icon-192x192.png">
+  	<link rel="icon" type="image/png" sizes="32x32" href="_src/img/favicon/favicon-32x32.png">
+  	<link rel="icon" type="image/png" sizes="96x96" href="_src/img/favicon/favicon-96x96.png">
+  	<link rel="icon" type="image/png" sizes="16x16" href="_src/img/favicon/favicon-16x16.png">
+  	<link rel="manifest" href="_src/img/favicon/manifest.json">
+  	<meta name="msapplication-TileColor" content="#ffffff">
+  	<meta name="msapplication-TileImage" content="_src/img/favicon/ms-icon-144x144.png">
+  	<meta name="theme-color" content="#ffffff">
+  </head>
+
+  <body>
+
+  <div class="c-background c-background--base c-background--position-center c-background--fixed c-background--cover c-background--map u-block-padding--sm">
+
+  	<div class="u-block--full c-flex c-flex--v-center">
+
+  		<div class="container">
+
+  			<div class="row">
+
+  				<div class="col-lg-8 offset-lg-2">
+
+  					<div class="c-background--black-o u-block-padding--sm">
+
+  						<h2 class="u-text--center"><em><span class="u-text--lavender">Cosmetic</span><span class="u-text--white">Surgery.com</span></em></h2>
+
+
+  						<h1 class="u-text--center u-text--lavender u-text--uppercase">Your Location</h1>
+
+  						<p class="u-text--center u-text--white "><span class="u-text--lg">We are unable to find your location.</span></p>
+
+  						<form>
+
+  							<div class="align-items-center u-block-padding--sm  u-block-padding-bottom--md u-text--white">
+
+  								<div class="form-group">
+  									<label for="inputZipcode">Enter your zipcode</label>
+                    <%= f.text_field :zip_code, class: "form-control" %>
+  								</div>
+
+  								<h3 class="u-text--light u-text--uppercase u-text--center"><span class="u-text--lg">or</span></h3>
+
+  								<div class="form-group">
+  									<label for="inputLocation">Enter your location</label>
+  									<!-- <input class="form-control" id="inputLocation" placeholder="City, State"> -->
+                    <%#= f.collection_select :state, Zipcode.order(:city), :id, :city,  include_blank: true %>
+                    <%= f.text_field :zipcode_name, class: "form-control"%>
+  									<small id="emailHelp" class="form-text text-muted u-text--white">Your City, State</small>
+  								</div>
+
+
+                  <div class="actions form-group">
+                    <div class="btn btn-primary btn-lg btn-block">
+                     <%= f.submit "Locate Customer", :class => 'btn btn-primary' %>
+                    </div>
+                  </div>
+
+
+
+  							</div>
+
+  						</form>
+
+  					</div>
+
+  				</div>
+
+  			</div>
+
+  		</div>
+
+  	</div>
+  </div>
+
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+  </html>
+<% end %>

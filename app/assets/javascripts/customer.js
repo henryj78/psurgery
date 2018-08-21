@@ -1,7 +1,7 @@
 jQuery(function() {
   var counties;
   counties = $('#customer_zone_id').html();
-  console.log(counties);
+   console.log(counties);
   return $('#customer_state_id').change(function() {
     var state, options;
     state = $('#customer_state_id :selected').text();
