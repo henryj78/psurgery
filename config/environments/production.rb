@@ -41,6 +41,12 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
+  #TODO asset not showing on aws production
+  # get assets to show
+  # config.assets.digest = true
+  #TODO getting public asset to show aws not on Heroku
+  config.public_file_server.enabled = true
+
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'

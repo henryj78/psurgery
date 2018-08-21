@@ -23,6 +23,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
       <th>Role</th>
       <th colspan="3"></th>
     </tr>
@@ -55,6 +56,7 @@
          <%  #TODO Needs be refactor - Time permitting %>
 
         <td><%= link_to 'Log', customer_customer_device_path(customer) %></td>
+        <td><%= link_to 'Report', customer_report_status_path(customer), class: 'css_class' %></td>
 
         <% if !customer.validate_cus.nil? %>
           <!-- Hold Status -->

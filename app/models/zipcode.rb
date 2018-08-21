@@ -57,4 +57,12 @@ class Zipcode < ApplicationRecord
        @cus_check.save(:validate => false)
     end
   end
+
+  def zipcode_name
+   @zipcode.try(:city)
+  end
+
+  def zipcode_name=(name)
+   self.zipcode = Zipcode.find_by(city: name) if name.present?
+  end
 end
