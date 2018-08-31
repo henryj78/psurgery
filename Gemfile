@@ -38,8 +38,6 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Get device or Browser information
 gem "browser"
@@ -51,6 +49,7 @@ gem 'geocoder'
 gem 'devise'
 
 # jqury ui
+gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
 group :development, :test do

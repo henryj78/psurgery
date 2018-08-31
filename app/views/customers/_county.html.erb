@@ -26,7 +26,7 @@
 
   <div class="field form-group">
     <%= f.label :county_id %>
-    <%= f.grouped_collection_select :zone_id, State.order(:name), :counties, :name, :id, :name, include_blank: true %>
+    <%= f.grouped_collection_select :zone_id, State.order(:name), :ordered_counties, :name, :id, :name, include_blank: true %>
   </div>
 
 
