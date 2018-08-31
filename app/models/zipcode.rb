@@ -10,6 +10,23 @@ class Zipcode < ApplicationRecord
     return customer_url
   end
 
+  #TODO make this more dry combine methods
+  def self.find_customer_url_city(city)
+    customer_url = 'https://lease.cosmeticsurgery.com/'
+    county = Zipcode.where(city: city)
+
+    if !county.empty?
+      zone = Zone.where(county: county[0].county)
+      if !zone.empty?
+        custid = zone[0].customer_id
+        @cus_check = Customer.find(custid)
+        Zipcode.covert_demo if @cus_check.status_id == 2
+        customer_url = zone[0].customer if @cus_check.status_id != 3
+      end
+      return customer_url
+    end
+  end
+
   def self.find_url(customer)
     customer_url = nil
     begin

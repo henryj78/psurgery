@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :sale_payments
+  resources :cdrops
   devise_for :users
 
   resources :sales do

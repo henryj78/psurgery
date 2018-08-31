@@ -5,9 +5,17 @@ class ZipcodesController < ApplicationController
   #layout false, :only => :customer
   layout 'custom'
 
+
   def create
     #TODO Hijacked the create method
-    uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
+    if params[:zipcode][:zip_code].to_i != 0
+      uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
+    end
+
+    if params[:zipcode][:zip_code].to_i == 0 && params[:zipcode][:zipcode_name].size != 0
+      uri = Zipcode.find_customer_url_city(params[:zipcode][:zipcode_name].titleize)
+    end
+
     if uri.nil?
       redirect_to('https://lease.cosmeticsurgery.com/')
     else
@@ -18,6 +26,7 @@ class ZipcodesController < ApplicationController
 
   def aws_hits
   end
+
 
   def customer
     @zipcode = Zipcode.new

@@ -5,4 +5,7 @@ class State < ApplicationRecord
   # TODO Testing Development enviroment - state
   # establish_connection :external_database
 
+  def ordered_counties
+   counties.order(:name)
+  end
 end

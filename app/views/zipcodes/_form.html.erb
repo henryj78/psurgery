@@ -84,17 +84,17 @@
   								<h3 class="u-text--light u-text--uppercase u-text--center"><span class="u-text--lg">or</span></h3>
 
   								<div class="form-group">
-  									<label for="inputLocation">Enter your location</label>
-  									<!-- <input class="form-control" id="inputLocation" placeholder="City, State"> -->
-                    <%#= f.collection_select :state, Zipcode.order(:city), :id, :city,  include_blank: true %>
-                    <%= f.text_field :zipcode_name, class: "form-control"%>
+  									<label for="inputLocation">Enter City</label>
+                    <%= f.text_field :zipcode_name,class: "form-control", data: { autocomplete_source: cdrops_path } %>
   									<small id="emailHelp" class="form-text text-muted u-text--white">Your City, State</small>
   								</div>
 
 
                   <div class="actions form-group">
-                    <div class="btn btn-primary btn-lg btn-block">
-                     <%= f.submit "Locate Customer", :class => 'btn btn-primary' %>
+                    <div>
+                      <center>
+                        <%= f.submit "Locate Customer", :class => 'btn btn-primary' %>
+                      </center>  
                     </div>
                   </div>
 
@@ -118,9 +118,9 @@
 
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
     </body>
   </html>
 <% end %>
