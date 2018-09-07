@@ -11,7 +11,8 @@
       </div>
     <% end %>
 
-
+   <br />
+   <center><p id="notice"><%= notice %></p></center>
 
     <!-- <div class="actions form-group">
       <div class="col-sm-offset-2 col-sm-10">
@@ -78,15 +79,15 @@
 
   								<div class="form-group">
   									<label for="inputZipcode">Enter your zipcode</label>
-                    <%= f.text_field :zip_code, class: "form-control" %>
+                    <%= f.text_field :zip_code, class: "form-control", placeholder: "e.g. 98764" %>
   								</div>
 
   								<h3 class="u-text--light u-text--uppercase u-text--center"><span class="u-text--lg">or</span></h3>
 
   								<div class="form-group">
   									<label for="inputLocation">Enter City</label>
-                    <%= f.text_field :zipcode_name,class: "form-control", data: { autocomplete_source: cdrops_path } %>
-  									<small id="emailHelp" class="form-text text-muted u-text--white">Your City, State</small>
+                    <%= f.text_field :zipcode_name,class: "form-control", data: { autocomplete_source: cdrops_path }, placeholder: "e.g. City, State" %>
+  									<small id="emailHelp" class="form-text text-muted u-text--white">''</small>
   								</div>
 
 
@@ -94,7 +95,7 @@
                     <div>
                       <center>
                         <%= f.submit "Locate Customer", :class => 'btn btn-primary' %>
-                      </center>  
+                      </center>
                     </div>
                   </div>
 
