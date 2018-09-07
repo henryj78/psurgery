@@ -87,3 +87,11 @@ div {
 label {
   display: block;
 }
+
+table tr.oddrow {
+    background-color: #ffffff;
+}
+
+table tr.evenrow {
+    background-color: #00FFFF;
+}

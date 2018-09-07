@@ -11,7 +11,7 @@
 
 <br />
 
-<p><font color=red>*</font><i><font color=blue>Fields in red are not clickable</font></i></p>
+<!-- <p><font color=red>*</font><i><font color=blue>Fields in red are not clickable</font></i></p> -->
 
 <table class="table">
   <thead>
@@ -31,7 +31,7 @@
 
   <tbody>
     <% @customers.each do |customer| %>
-      <tr>
+      <tr class = "<%= cycle('oddrow', 'evenrow') -%>">
         <td>
           <font color=blue><%= customer.first_name  + " " + customer.last_name if customer.payment_color.nil? %></font>
           <font color=blue><%= customer.first_name  + " " + customer.last_name if customer.payment_color == 0 %></font>
@@ -81,3 +81,7 @@
 <% end %>
 
 <br />
+<br />
+
+<p><small><font color=red>*</font><i><font color=blue>County field in <font color=red>red</font> are not clickable County field in <font color =#ffbf00>yellow</font> indicates empty field</font></i></small></p>
+<p><small><font color=red>*</font><i><font color=blue>Name field in Blue No payments : <font color=green>Green</font> Current : <font color=ffbf00>Yellow</font> : 30 days <font color=red>Red</font> 60 days</font></i></small></p>

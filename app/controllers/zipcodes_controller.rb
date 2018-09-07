@@ -8,19 +8,46 @@ class ZipcodesController < ApplicationController
 
   def create
     #TODO Hijacked the create method
-    if params[:zipcode][:zip_code].to_i != 0
-      uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
-    end
+    switch = 0
+    zipcode = params[:zipcode][:zip_code].to_i
+    city = params[:zipcode][:zipcode_name].size
+    city_name = params[:zipcode][:zipcode_name]
 
-    if params[:zipcode][:zip_code].to_i == 0 && params[:zipcode][:zipcode_name].size != 0
-      uri = Zipcode.find_customer_url_city(params[:zipcode][:zipcode_name].titleize)
-    end
-
-    if uri.nil?
+    #Zipcode and city field is empty
+    if zipcode == 0 && city == 0
       redirect_to('https://lease.cosmeticsurgery.com/')
     else
-       Zipcode.write_device(browser, uri.id)
-       redirect_to(uri.customer_url.to_s)
+      if zipcode != 0
+        ccheck = Zipcode.validate_zipcode(zipcode)
+        uri = Zipcode.find_customer_url(zipcode) if !ccheck.empty?
+        switch = 1 if ccheck.empty?
+      end
+
+      if city != 0
+        city_name = city_name.split("|")[0]
+        ccheck = Zipcode.validate_city(city_name.strip.titleize)
+        uri = Zipcode.find_customer_url_city(city_name.strip.titleize) if !ccheck.empty?
+        switch = 2 if ccheck.empty?
+      end
+
+      if ccheck.empty?
+        flash[:notice] = 'Invalid zipcode try again ... ' if switch == 1
+        flash[:notice] = 'Invalid City try again .... ' if switch == 2
+        redirect_to(root_url)
+      end
+
+      if uri.nil? && ccheck.nil?
+        redirect_to('https://lease.cosmeticsurgery.com/')
+      end
+
+      if uri.nil? && !ccheck.empty?
+        redirect_to('https://lease.cosmeticsurgery.com/')
+      end
+
+      if !uri.nil? && !ccheck.empty? || ccheck.nil?
+        Zipcode.write_device(browser, uri.id)
+        redirect_to(uri.customer_url.to_s)
+      end
     end
   end
 

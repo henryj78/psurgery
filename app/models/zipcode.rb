@@ -12,16 +12,18 @@ class Zipcode < ApplicationRecord
 
   #TODO make this more dry combine methods
   def self.find_customer_url_city(city)
-    customer_url = 'https://lease.cosmeticsurgery.com/'
+    customer_url = nil
     county = Zipcode.where(city: city)
 
     if !county.empty?
       zone = Zone.where(county: county[0].county)
       if !zone.empty?
-        custid = zone[0].customer_id
-        @cus_check = Customer.find(custid)
-        Zipcode.covert_demo if @cus_check.status_id == 2
-        customer_url = zone[0].customer if @cus_check.status_id != 3
+        if !zone[0].customer_id.nil?
+          custid = zone[0].customer_id
+          @cus_check = Customer.find(custid)
+          Zipcode.covert_demo if @cus_check.status_id == 2
+          customer_url = zone[0].customer if @cus_check.status_id != 3
+        end
       end
       return customer_url
     end
@@ -32,11 +34,13 @@ class Zipcode < ApplicationRecord
     begin
       zone = Zone.where(county: customer[0].county, state: customer[0].state)
       if !zone.empty?
-       custid = zone[0].customer_id
-       @cus_check = Customer.find(custid)
-       Zipcode.covert_demo if @cus_check.status_id == 2
-       customer_url = zone[0].customer if @cus_check.status_id != 3
-      end
+         if !zone[0].customer_id.nil?
+          custid = zone[0].customer_id
+          @cus_check = Customer.find(custid)
+          Zipcode.covert_demo if @cus_check.status_id == 2
+          customer_url = zone[0].customer if @cus_check.status_id != 3
+         end
+       end
       rescue StandardError => e
         puts "********************** rescue error"
         puts e.message
@@ -79,7 +83,15 @@ class Zipcode < ApplicationRecord
    @zipcode.try(:city)
   end
 
+  def self.validate_zipcode(zp)
+    Zipcode.where(zip_code: zp)
+  end
+
   def zipcode_name=(name)
    self.zipcode = Zipcode.find_by(city: name) if name.present?
+  end
+
+  def self.validate_city(city)
+    ccity = Zipcode.where(city: city)
   end
 end
