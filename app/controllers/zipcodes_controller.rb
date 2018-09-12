@@ -8,46 +8,14 @@ class ZipcodesController < ApplicationController
 
   def create
     #TODO Hijacked the create method
-    switch = 0
-    zipcode = params[:zipcode][:zip_code].to_i
-    city = params[:zipcode][:zipcode_name].size
-    city_name = params[:zipcode][:zipcode_name]
-
-    #Zipcode and city field is empty
-    if zipcode == 0 && city == 0
-      redirect_to('https://lease.cosmeticsurgery.com/')
+    initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
+    flash[:notice] = 'Invalid zipcode try again ... ' if @city == 0
+    flash[:notice] = 'Invalid City try again .... ' if @zipcode == 0
+    
+    if @uri.empty?
+      redirect_to(root_url)
     else
-      if zipcode != 0
-        ccheck = Zipcode.validate_zipcode(zipcode)
-        uri = Zipcode.find_customer_url(zipcode) if !ccheck.empty?
-        switch = 1 if ccheck.empty?
-      end
-
-      if city != 0
-        city_name = city_name.split("|")[0]
-        ccheck = Zipcode.validate_city(city_name.strip.titleize)
-        uri = Zipcode.find_customer_url_city(city_name.strip.titleize) if !ccheck.empty?
-        switch = 2 if ccheck.empty?
-      end
-
-      if ccheck.empty?
-        flash[:notice] = 'Invalid zipcode try again ... ' if switch == 1
-        flash[:notice] = 'Invalid City try again .... ' if switch == 2
-        redirect_to(root_url)
-      end
-
-      if uri.nil? && ccheck.nil?
-        redirect_to('https://lease.cosmeticsurgery.com/')
-      end
-
-      if uri.nil? && !ccheck.empty?
-        redirect_to('https://lease.cosmeticsurgery.com/')
-      end
-
-      if !uri.nil? && !ccheck.empty? || ccheck.nil?
-        Zipcode.write_device(browser, uri.id)
-        redirect_to(uri.customer_url.to_s)
-      end
+      redirect_to(@uri)
     end
   end
 
@@ -83,6 +51,19 @@ class ZipcodesController < ApplicationController
 
 
   private
+
+  def initilize(zipcode, city)
+    @zipcode = zipcode.to_i
+    @city = city.size
+    @city_name = city
+
+    if @zipcode == 0 and @city == 0
+     @uri = 'https://lease.cosmeticsurgery.com/'
+    else
+     @uri = Zipcode.validate_input(@city_name, @zipcode)
+    end
+  end
+
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def zipcode_params
