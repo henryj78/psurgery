@@ -83,15 +83,25 @@ class Zipcode < ApplicationRecord
    @zipcode.try(:city)
   end
 
-  def self.validate_zipcode(zp)
-    Zipcode.where(zip_code: zp)
+  def self.validate_input(ckcity, zp)
+    if ckcity.size != 0
+       city_name = ckcity.split(",")[0]
+       ccheck = Zipcode.where(city: city_name.strip.titleize)
+       zp = ccheck[0].zip_code.to_i if !ccheck.empty?
+    else
+       ccheck = Zipcode.where(zip_code: zp)
+    end
+
+
+    if !ccheck.empty?
+     ccheck = find_customer_url(zp)
+     ccheck = ccheck.customer_url if !ccheck.nil?
+     ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
+    end
+   return ccheck
   end
 
   def zipcode_name=(name)
    self.zipcode = Zipcode.find_by(city: name) if name.present?
-  end
-
-  def self.validate_city(city)
-    ccity = Zipcode.where(city: city)
   end
 end

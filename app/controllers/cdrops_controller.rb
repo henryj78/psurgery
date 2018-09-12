@@ -10,6 +10,6 @@ class CdropsController < ApplicationController
         @cites = []
      end
      # render json: @cites.map(&:city).uniq
-     render json: @cites.map{|n| "#{n.city} |  #{n.state}"}.uniq
+     render json: @cites.map{|n| "#{n.city} ,  #{n.state}"}.uniq
   end
 end
