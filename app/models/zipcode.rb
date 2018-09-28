@@ -3,7 +3,6 @@ class Zipcode < ApplicationRecord
   # TODO Testing Development enviroment - zipcode
   # establish_connection :external_database
 
-
   def self.find_customer_url(search)
     county = Zipcode.where(zip_code: search)
     customer_url = Zipcode.find_url(county)
@@ -86,7 +85,8 @@ class Zipcode < ApplicationRecord
   def self.validate_input(ckcity, zp)
     if ckcity.size != 0
        city_name = ckcity.split(",")[0]
-       ccheck = Zipcode.where(city: city_name.strip.titleize)
+       city_state = ckcity.split(",")[1]
+       ccheck = Zipcode.where(city: city_name.strip.titleize, state: city_state.strip)
        zp = ccheck[0].zip_code.to_i if !ccheck.empty?
     else
        ccheck = Zipcode.where(zip_code: zp)
