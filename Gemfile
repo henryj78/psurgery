@@ -38,6 +38,11 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
+# redis caches
+# gem 'redis'
+
+# Area geo gem
+# gem 'area'
 
 # Get device or Browser information
 gem "browser"

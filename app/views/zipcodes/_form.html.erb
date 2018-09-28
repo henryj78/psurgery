@@ -30,7 +30,7 @@
 
   	<!-- Bootstrap CSS -->
   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  	<link rel="stylesheet" href="_src/css/global.css">
+  	<!-- <link rel="stylesheet" href="_src/css/global.css"> -->
 
   	<title>CosmeticSurgery.com - Lease Opportunity</title>
   	<link rel="apple-touch-icon" sizes="57x57" href="_src/img/favicon/apple-icon-57x57.png">
@@ -52,7 +52,9 @@
   	<meta name="theme-color" content="#ffffff">
   </head>
 
-  <body onload="getLocation()">
+  <body>
+
+
 
   <div class="c-background c-background--base c-background--position-center c-background--fixed c-background--cover c-background--map u-block-padding--sm">
 
@@ -114,23 +116,6 @@
 
   	</div>
   </div>
-
-  <script>
-  var x = document.getElementById("demo");
-
-  function getLocation() {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-      } else {
-          innerHTML = "Geolocation is not supported by this browser.";
-      }
-  }
-
-  function showPosition(position) {
-      innerHTML = "Latitude: " + position.coords.latitude +
-      "<br>Longitude: " + position.coords.longitude;
-  }
-  </script>
 
     </body>
   </html>

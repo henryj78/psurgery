@@ -140,10 +140,14 @@ def self.write_customer_to_zone (customer)
    end
  end
 
- def self.report_calu
-   customer = []
-   nfds = 5
-   customer << nfds
-   return customer
+ def self.report_calu(customer)
+   #TODO need to be refactored quick and easy
+   customer_array = []
+   days  = (Time.now.to_date - customer.created_at.to_date).to_i
+   created_date = customer.created_at.to_s
+   avg_traffic =
+   customer_array << days
+   customer_array << created_date
+   return customer_array
  end
 end

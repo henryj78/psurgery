@@ -11,7 +11,7 @@ class ZipcodesController < ApplicationController
     initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
     flash[:notice] = 'Invalid zipcode try again ... ' if @city == 0
     flash[:notice] = 'Invalid City try again .... ' if @zipcode == 0
-    
+
     if @uri.empty?
       redirect_to(root_url)
     else
@@ -26,26 +26,22 @@ class ZipcodesController < ApplicationController
   def customer
     @zipcode = Zipcode.new
   begin
-    latitude =  request.location.latitude
-    longitude = request.location.longitude
+    @req = request.location
+    latitude =  @req.latitude
+    longitude = @req.longitude
+    @ip = @req.ip
+    zip = @req.postal
 
-    puts "Latitude" + " : " + latitude.to_s
-    puts "Longitude" + " : " + longitude.to_s
-
-    @ip = request.location.ip
-
-    if latitude == 0 || longitude == 0
+    if latitude.to_i == 0 || longitude.to_i == 0
       # get zip screen
     else
-      zip = Geocoder.search([latitude, longitude]).first.postal_code
       uri = Zipcode.find_customer_url(zip.to_i)
       Zipcode.write_device(browser, uri.id) if !uri.nil?
       redirect_to(uri.customer_url.to_s) if !uri.nil?
     end
     rescue StandardError => e
-      puts "********************** rescue error"
       puts e.message
-      puts e.backtrace.inspect
+      #puts e.backtrace.inspect
     end
   end
 
@@ -56,7 +52,6 @@ class ZipcodesController < ApplicationController
     @zipcode = zipcode.to_i
     @city = city.size
     @city_name = city
-
     if @zipcode == 0 and @city == 0
      @uri = 'https://lease.cosmeticsurgery.com/'
     else

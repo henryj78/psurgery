@@ -108,7 +108,9 @@ class CustomersController < ApplicationController
   end
 
   def report_status
-    @customer = Customer.report_calu
+    cusid = params[:customer_id].to_i
+    single_cus = Customer.find(cusid)
+    @customer = Customer.report_calu(single_cus)
   end
 
   def customer_build
