@@ -145,7 +145,7 @@ def self.write_customer_to_zone (customer)
    customer_array = []
    days  = (Time.now.to_date - customer.created_at.to_date).to_i
    created_date = customer.created_at.to_s
-   avg_traffic =
+   avg_traffic =''
    customer_array << days
    customer_array << created_date
    return customer_array
