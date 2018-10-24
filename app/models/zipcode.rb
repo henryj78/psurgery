@@ -82,26 +82,46 @@ class Zipcode < ApplicationRecord
    @zipcode.try(:city)
   end
 
-  def self.validate_input(ckcity, zp)
-    if ckcity.size != 0
-       city_name = ckcity.split(",")[0]
-       city_state = ckcity.split(",")[1]
-       ccheck = Zipcode.where(city: city_name.strip.titleize, state: city_state.strip)
-       zp = ccheck[0].zip_code.to_i if !ccheck.empty?
-    else
-       ccheck = Zipcode.where(zip_code: zp)
+
+  def self.validate_input(city, zipcode)
+    if zipcode.size != 0
+       ccheck = Zipcode.where(zip_code: zipcode.to_i)
+       if !ccheck.empty?
+         ccheck = Zipcode.geturl(ccheck[0])
+       else
+         ccheck = nil
+       end
     end
 
-
-    if !ccheck.empty?
-     ccheck = find_customer_url(zp)
-     ccheck = ccheck.customer_url if !ccheck.nil?
-     ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
+    if zipcode.size == 0
+      if !city.split(",")[1].nil?
+        ccheck = Zipcode.where(city: city.split(",")[0].strip.titleize,
+          state: city.split(",")[1].upcase.strip)
+          if !ccheck.empty?
+             ccheck = Zipcode.geturl(ccheck[0])
+          else
+            ccheck = nil
+          end
+      else
+        ccheck = nil
+      end
     end
-   return ccheck
+    return ccheck
   end
+
 
   def zipcode_name=(name)
    self.zipcode = Zipcode.find_by(city: name) if name.present?
+  end
+
+
+  def self.geturl(url)
+    ccheck = url.zip_code.to_i
+    ccheck = find_customer_url(ccheck)
+    if !ccheck.nil?
+     ccheck = ccheck.customer_url
+    else
+      ccheck = nil
+    end
   end
 end

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :cdrops
   devise_for :users
 
+
   resources :sales do
     get 'customer_sales'
   end
@@ -40,4 +41,5 @@ Rails.application.routes.draw do
   get "/500", :to => "errors#internal_error"
 
   root "zipcodes#customer"
+
 end

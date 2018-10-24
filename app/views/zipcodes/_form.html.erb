@@ -82,6 +82,8 @@
   								<div class="form-group">
   									<label for="inputZipcode">Enter your zipcode</label>
                     <%= f.text_field :zip_code, class: "form-control", placeholder: "e.g. 98764" %>
+                    <%= f.hidden_field :latitude, class: "form-control", placeholder: "e.g. 98764" %>
+                    <%= f.hidden_field :longitude, class: "form-control", placeholder: "e.g. 98764" %>
   								</div>
 
   								<h3 class="u-text--light u-text--uppercase u-text--center"><span class="u-text--lg">or</span></h3>
@@ -92,11 +94,14 @@
   									<small id="emailHelp" class="form-text text-muted u-text--white">''</small>
   								</div>
 
-
                   <div class="actions form-group">
                     <div>
                       <center>
                         <%= f.submit "Locate Doctor", :class => 'btn btn-primary' %>
+
+<div id="out"></div>
+
+
                       </center>
                     </div>
                   </div>
@@ -115,8 +120,40 @@
   		</div>
 
   	</div>
-  </div>
+    </div>
+
+    <!-- <script>
+    function geoFindMe() {
+            var output = document.getElementById("out");
+
+            function success(position) {
+              var latitude  = position.coords.latitude;
+              var longitude = position.coords.longitude;
+              //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+              }
+
+
+            function error() {
+              output.innerHTML = "Unable to retrieve your location";
+            }
+
+            var latitude		= position.coords.latitude;
+            var longitude	  = position.coords.longitude;
+            $(document).ready(function(){
+                    $("#zipcode_latitude").val(latitude);
+                    $("#zipcode_longitude").val(longitude);
+                  });
+
+            //output.innerHTML = "<p>Locating…</p>";
+            navigator.geolocation.getCurrentPosition(success, error);
+    }
+
+     window.onload = geoFindMe;
+    </script> -->
+
 
     </body>
   </html>
+
+
 <% end %>

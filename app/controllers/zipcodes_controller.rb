@@ -1,19 +1,16 @@
 class ZipcodesController < ApplicationController
   require "browser"
   browser = Browser.new("Mozilla/5.0 (iPad; U; CPU OS 3_2_1 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Mobile/7B405")
-
   #layout false, :only => :customer
   layout 'custom'
-
 
   def create
     #TODO Hijacked the create method
     initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
-    flash[:notice] = 'Invalid zipcode try again ... ' if @city == 0
-    flash[:notice] = 'Invalid City try again .... ' if @zipcode == 0
 
-    if @uri.empty?
+    if @uri.nil?
       redirect_to(root_url)
+      flash[:notice] = 'Invalid zipcode or city try again ... '
     else
       redirect_to(@uri)
     end
@@ -49,13 +46,10 @@ class ZipcodesController < ApplicationController
   private
 
   def initilize(zipcode, city)
-    @zipcode = zipcode.to_i
-    @city = city.size
-    @city_name = city
-    if @zipcode == 0 and @city == 0
+    if zipcode.size == 0 and city.size == 0
      @uri = 'https://lease.cosmeticsurgery.com/'
     else
-     @uri = Zipcode.validate_input(@city_name, @zipcode)
+     @uri = Zipcode.validate_input(city, zipcode)
     end
   end
 
