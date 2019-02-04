@@ -6,17 +6,36 @@ class ZipcodesController < ApplicationController
 
   def create
     #TODO Hijacked the create method
-    initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
 
-    if @uri.nil?
-      redirect_to(root_url)
-      flash[:notice] = 'Invalid zipcode or city try again ... '
-    else
-      redirect_to(@uri)
-    end
-  end
+    @zipcode = Zipcode.new
+
+     @browser_lat =  params[:zipcode][:latitude]
+     @browser_long = params[:zipcode][:longitude]
+
+
+
+
+    # ************************
+    puts "******************************** @browser_lat : " + @browser_lat
+    puts "******************************** @browser_long : " + @browser_long
+
+
+      if params[:zipcode][:zipcode_name].nil?
+        if @browser_lat != "" || @browser_long != ""
+          @county_zip = browser_loc(@browser_lat,@browser_long )
+          @county = ""
+          initilize(@county_zip,@county)
+          change_url(@uri)
+        end
+      else
+        initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
+        change_url(@uri)
+      end
+   end
+
 
   def aws_hits
+    @zipcode = Zipcode.new
   end
 
 
@@ -42,10 +61,10 @@ class ZipcodesController < ApplicationController
     end
   end
 
-
   private
 
   def initilize(zipcode, city)
+
     if zipcode.size == 0 and city.size == 0
      @uri = 'https://lease.cosmeticsurgery.com/'
     else
@@ -53,6 +72,48 @@ class ZipcodesController < ApplicationController
     end
   end
 
+  def browser_loc(lat, long)
+
+    browser_lat = lat[0..3]
+    browser_long = long[0..5]
+    browser_long = browser_long[0..4] if  browser_long[3] == "."
+    lat = browser_lat[0..2]
+    latlng = browser_long[0..4]
+
+
+
+    county_zip = Zipcode.where("latitude like ? and longitude like ?","%#{browser_lat}%", "%#{browser_long}%")
+    county_zip = Zipcode.where("latitude like ? and longitude like ?","%#{lat}%", "%#{latlng}%") if county_zip.empty?
+
+
+    puts "******************************** browser_lat : " + browser_lat
+    puts "******************************** browser_long : " + browser_long
+
+
+
+    if !county_zip.empty?
+      county_map = county_zip.map{|n| n.county}.first
+      county_state = county_zip.map{|n| n.state}.first
+
+      czip = Zone.where(county: county_map, state: county_state)
+      xzip = Zipcode.where(county: czip[0].county, state: county_state)
+      if !xzip.empty?
+         Zipcode.write_device(browser, czip[0].customer_id)
+         county_zip = xzip[0].zip_code
+      end
+      return county_zip  if !czip[0].customer_id.nil?
+    end
+   else
+     county_zip = nil
+     return county_zip
+  end
+
+  def change_url(uri)
+    if uri.nil?
+     @uri = 'https://lease.cosmeticsurgery.com/'
+    end
+    redirect_to(uri)
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def zipcode_params

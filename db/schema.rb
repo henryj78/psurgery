@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_29_015439) do
+ActiveRecord::Schema.define(version: 2018_11_28_180546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.string "email"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "counties", force: :cascade do |t|
     t.string "name"
@@ -73,6 +80,13 @@ ActiveRecord::Schema.define(version: 2018_07_29_015439) do
     t.string "windows_platform"
     t.string "windows_mobile"
     t.string "windows_phone"
+  end
+
+  create_table "doors", force: :cascade do |t|
+    t.string "latitude"
+    t.string "longitutde"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "payments", force: :cascade do |t|

@@ -7,6 +7,9 @@
   <li><%= link_to 'New Customer', new_customer_path %></li>
   <li><%= link_to 'Track', tracks_path %></li>
   <li><%= link_to 'Saleperson', sales_path %></li>
+  <li><%= link_to 'Sign Up', new_admin_path  if  current_user.email == 'michael@plasticsurgery.com' %></li>
+  <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+  <!-- michael@plasticsurgery.com -->
 </ul>
 
 <br />
@@ -56,7 +59,9 @@
          <%  #TODO Needs be refactor - Time permitting %>
 
         <td><%= link_to 'Log', customer_customer_device_path(customer) %></td>
-        <td><%= link_to 'Report', customer_report_status_path(customer), class: 'css_class' %></td>
+        <td><%= link_to '30', customer_report_status_path(customer), class: 'css_class' %></td>
+        <td><%= link_to '60', customer_report_status_60_path(customer), class: 'css_class' %></td>
+        <td><%= link_to ' all', customer_report_status_all_path(customer), class: 'css_class' %></td>
 
         <% if !customer.validate_cus.nil? %>
           <!-- Hold Status -->
@@ -79,7 +84,6 @@
 <%= link_to new_customer_path, class: 'btn btn-success' do %>
   <i class="glyphicon glyphicon-plus"></i> New Customer
 <% end %>
-
 <br />
 <br />
 

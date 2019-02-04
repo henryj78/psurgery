@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+
+
   resources :sale_payments
   resources :cdrops
+  resources :admins
   devise_for :users
 
 
@@ -12,7 +15,7 @@ Rails.application.routes.draw do
 
   resources :payments do
     get 'retrieve_pay'
-    get   'add_payment'
+    get 'add_payment'
   end
 
   resources :customers do
@@ -26,12 +29,15 @@ Rails.application.routes.draw do
     patch 'deativate_note'
     get   'remove_zone_id'
     get   'report_status'
+    get   'report_status_60'
+    get   'report_status_all'
   end
 
   resources :zipcodes do
     get 'customer'
     get 'aws_hits'
   end
+
 
   get "/location" => "application#location"
 
@@ -40,6 +46,8 @@ Rails.application.routes.draw do
   get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
 
-  root "zipcodes#customer"
+  #root "zipcodes#customer"
+  root "zipcodes#aws_hits"
+
 
 end

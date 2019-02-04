@@ -68,40 +68,32 @@
 
   					<div class="c-background--black-o u-block-padding--sm">
 
-  						<h2 class="u-text--center"><em><span class="u-text--lavender">Cosmetic</span><span class="u-text--white">Surgery.com</span></em></h2>
+  						<!-- <h2 class="u-text--center"><em><span class="u-text--lavender">Cosmetic</span><span class="u-text--white">Surgery.com</span></em></h2> -->
 
 
-  						<h1 class="u-text--center u-text--lavender u-text--uppercase">Your Location</h1>
+  						<h1 class="u-text--center u-text--lavender u-text--uppercase"></h1>
 
-  						<p class="u-text--center u-text--white "><span class="u-text--lg">We are unable to find your location.</span></p>
+  						<p class="u-text--center u-text--white "><span class="u-text--lg"></span></p>
 
   						<form>
 
   							<div class="align-items-center u-block-padding--sm  u-block-padding-bottom--md u-text--white">
 
   								<div class="form-group">
-  									<label for="inputZipcode">Enter your zipcode</label>
-                    <%= f.text_field :zip_code, class: "form-control", placeholder: "e.g. 98764" %>
                     <%= f.hidden_field :latitude, class: "form-control", placeholder: "e.g. 98764" %>
                     <%= f.hidden_field :longitude, class: "form-control", placeholder: "e.g. 98764" %>
   								</div>
 
-  								<h3 class="u-text--light u-text--uppercase u-text--center"><span class="u-text--lg">or</span></h3>
+  								<h2 class="u-text--center"><em><span class="u-text--lavender">Cosmetic</span><span class="u-text--white">Surgery.com</span></em></h2>
 
-  								<div class="form-group">
-  									<label for="inputLocation">Enter City</label>
-                    <%= f.text_field :zipcode_name,class: "form-control", data: { autocomplete_source: cdrops_path }, placeholder: "e.g. City, State" %>
-  									<small id="emailHelp" class="form-text text-muted u-text--white">''</small>
-  								</div>
 
                   <div class="actions form-group">
                     <div>
                       <center>
-                        <%= f.submit "Locate Doctor", :class => 'btn btn-primary' %>
+                        <%#= f.submit "Locate Doctor", :class => 'btn btn-primary' %>
 
 <div id="out"></div>
-
-
+                      <div><%#= link_to 'Retry', nil, {:style=>'color:#FFFFFF;', :class => "css_class"} %></div>
                       </center>
                     </div>
                   </div>
@@ -122,7 +114,7 @@
   	</div>
     </div>
 
-    <script>
+   <script>
     function geoFindMe() {
             var output = document.getElementById("out");
             var options = {enableHighAccuracy: true,timeout: 5000,maximumAge: 0};
@@ -140,22 +132,25 @@
               var latitude  = position.coords.latitude;
               var longitude = position.coords.longitude;
 
-              //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+
+              output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
 
               $(document).ready(function(){
                 $("#zipcode_latitude").val(latitude);
                 $("#zipcode_longitude").val(longitude);
               });
 
-                    //$('form')[0].submit()
+              $('form')[0].submit()
+
 
             }
 
             function error() {
-              //output.innerHTML = "Unable to retrieve your location";
+              $('form')[0].submit();
+              output.innerHTML = "Unable to retrieve your location";
             }
 
-            //output.innerHTML = "<p>Locating…</p>";
+            output.innerHTML = "<p>Locating…</p>";
             navigator.geolocation.getCurrentPosition(success, error,options);
             //navigator.geolocation.watchPosition(success, error,options);
     }
