@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  after_action :set_customer_payment, only: [:index]
+  after_action  :set_customer_payment, only: [:index]
   after_action  :track_create_user, only: [:create ]
   after_action  :track_edit_user, only: [:update ]
 
@@ -105,12 +105,25 @@ class CustomersController < ApplicationController
    customer = Customer.find(params[:customer_id].to_i)
    @customers_name = customer.first_name + " " + customer.last_name
    @customers = customer.devices
+   @customers = @customers.order(created_at: :desc)
   end
 
   def report_status
     cusid = params[:customer_id].to_i
     single_cus = Customer.find(cusid)
     @customer = Customer.report_calu(single_cus)
+  end
+
+  def report_status_60
+    cusid = params[:customer_id].to_i
+    single_cus = Customer.find(cusid)
+    @customer = Customer.report_calu60(single_cus)
+  end
+
+  def report_status_all
+    cusid = params[:customer_id].to_i
+    single_cus = Customer.find(cusid)
+    @customer = Customer.report_calu_all(single_cus)
   end
 
   def customer_build

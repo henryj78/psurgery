@@ -3,6 +3,16 @@ class Zipcode < ApplicationRecord
   # TODO Testing Development enviroment - zipcode
   # establish_connection :external_database
 
+  #reverse_geocoded_by :latitude, :longitude
+  #after_validation :reverse_geocode
+  #after_validation :reverse_geocode
+
+ geocoded_by :address
+
+ def address
+   [city, zip_code].compact.join(",")
+ end
+
   def self.find_customer_url(search)
     county = Zipcode.where(zip_code: search)
     customer_url = Zipcode.find_url(county)
@@ -82,12 +92,13 @@ class Zipcode < ApplicationRecord
    @zipcode.try(:city)
   end
 
-
+#TODO REFACTOR this code
   def self.validate_input(city, zipcode)
     if zipcode.size != 0
        ccheck = Zipcode.where(zip_code: zipcode.to_i)
        if !ccheck.empty?
          ccheck = Zipcode.geturl(ccheck[0])
+         ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
        else
          ccheck = nil
        end
@@ -99,6 +110,7 @@ class Zipcode < ApplicationRecord
           state: city.split(",")[1].upcase.strip)
           if !ccheck.empty?
              ccheck = Zipcode.geturl(ccheck[0])
+             ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
           else
             ccheck = nil
           end
