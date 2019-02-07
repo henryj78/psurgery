@@ -7,6 +7,7 @@
   <li><%= link_to 'New Customer', new_customer_path %></li>
   <li><%= link_to 'Track', tracks_path %></li>
   <li><%= link_to 'Saleperson', sales_path %></li>
+  <li><%= link_to 'User',  admins_path  %></li>
   <li><%= link_to 'Sign Up', new_admin_path  if  current_user.email == 'michael@plasticsurgery.com' %></li>
   <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
   <!-- michael@plasticsurgery.com -->

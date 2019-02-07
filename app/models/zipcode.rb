@@ -100,7 +100,7 @@ class Zipcode < ApplicationRecord
          ccheck = Zipcode.geturl(ccheck[0])
          ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
        else
-         ccheck = nil
+         ccheck = 'https://lease.cosmeticsurgery.com/'
        end
     end
 
@@ -112,10 +112,10 @@ class Zipcode < ApplicationRecord
              ccheck = Zipcode.geturl(ccheck[0])
              ccheck = 'https://lease.cosmeticsurgery.com/' if ccheck.nil?
           else
-            ccheck = nil
+            ccheck = 'https://lease.cosmeticsurgery.com/'
           end
       else
-        ccheck = nil
+        ccheck = 'https://lease.cosmeticsurgery.com/'
       end
     end
     return ccheck

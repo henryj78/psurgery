@@ -88,14 +88,14 @@ class CustomersController < ApplicationController
 
   def update_county
     cusvaild = Customer.write_addtional_zone(params)
-    flash[:notice] = 'This county is saved by another customer' if cusvaild == 0
+    flash[:success] = 'This county is saved by another customer' if cusvaild == 0
 
     if cusvaild != 0
      screen = "County Add"
      command = "County Added"
      @customer = Customer.find(cusvaild.to_i)
      Customer.write_track_record(current_user, screen, command, @customer )
-     flash[:notice] = 'This county has been saved'
+     flash[:success] = 'This county has been saved'
     end
 
     redirect_to customers_url
