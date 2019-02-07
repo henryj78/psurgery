@@ -93,7 +93,7 @@
                         <%#= f.submit "Locate Doctor", :class => 'btn btn-primary' %>
 
 <div id="out"></div>
-                      <div><%#= link_to 'Retry', nil, {:style=>'color:#FFFFFF;', :class => "css_class"} %></div>
+                      <div><%#= link_to 'Continue', zipcodes_path, {:style=>'color:#FFFFFF;', :class => "css_class"} %></div>
                       </center>
                     </div>
                   </div>
@@ -132,25 +132,23 @@
               var latitude  = position.coords.latitude;
               var longitude = position.coords.longitude;
 
-
-              output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
-
               $(document).ready(function(){
+
+                //output.innerHTML = '<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>';
+
                 $("#zipcode_latitude").val(latitude);
                 $("#zipcode_longitude").val(longitude);
               });
 
               $('form')[0].submit()
-
-
             }
 
             function error() {
               $('form')[0].submit();
-              output.innerHTML = "Unable to retrieve your location";
+              output.innerHTML = "Unable to retrieve your location - Turn on Locations";
             }
 
-            output.innerHTML = "<p>Locating…</p>";
+            output.innerHTML = "<p>Loading . . .</p>";
             navigator.geolocation.getCurrentPosition(success, error,options);
             //navigator.geolocation.watchPosition(success, error,options);
     }

@@ -4,6 +4,12 @@ class ZipcodesController < ApplicationController
   #layout false, :only => :customer
   layout 'custom'
 
+  skip_before_action :authenticate_user!, :only => [:index]
+
+  def index
+    @zipcode = Zipcode.new
+  end
+
   def create
     #TODO Hijacked the create method
 
@@ -11,9 +17,6 @@ class ZipcodesController < ApplicationController
 
      @browser_lat =  params[:zipcode][:latitude]
      @browser_long = params[:zipcode][:longitude]
-
-
-
 
     # ************************
     puts "******************************** @browser_lat : " + @browser_lat

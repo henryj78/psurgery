@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+<ul class="nav nav-pills" role="tablist">
+  <li class="active"><%= link_to 'View Customers', customers_path %></li>
+</ul>
+
+<br />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Sign In Count</th>
+      <th>Last Sign In</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr class = "<%= cycle('oddrow', 'evenrow') -%>">
+        <td><font color=blue><%= customer.email  %></font></td>
+        <td><font color=blue><%= customer.sign_in_count  %></font></td>
+        <td><font color=green><%= customer.last_sign_in_at %></font></td>
+        <td><%= link_to "Delete", admin_path(customer), method: :delete, data: { confirm: "You sure?" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

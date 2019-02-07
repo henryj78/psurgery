@@ -3,8 +3,11 @@ Rails.application.routes.draw do
 
   resources :sale_payments
   resources :cdrops
-  resources :admins
   devise_for :users
+
+  resources :admins do
+    get 'friend'
+  end
 
 
   resources :sales do
