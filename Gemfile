@@ -58,6 +58,8 @@ gem 'devise'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+# Use when console breaks
+gem 'rb-readline'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
