@@ -141,74 +141,79 @@ def self.write_customer_to_zone (customer)
  end
 
  def self.report_calu(customer)
-   #TODO need to be refactored quick and easy
-    customer_count =
-      Device.where("created_at >= ? AND customer_id = ?", Time.now - 31.days, customer.id).count
-    tablet_count =
-      Device.where("created_at >= ? AND customer_id = ? And tablet = ?", Time.now - 31.days, customer.id, 't').count
-    iphone_count =
-      Device.where("created_at >= ? AND customer_id = ? And iphone = ?", Time.now - 31.days, customer.id, 't').count
-
-    customer_array = []
-    days  = (Time.now.to_date - customer.created_at.to_date).to_i
-    created_date = customer.created_at.to_s
-    customer_array << days
-    customer_array << created_date
-    customer_array << customer_count
-    customer_array << customer_count #3
-    customer_array << tablet_count #4
-    customer_array << iphone_count #5
-    customer_array << iphone_count  + tablet_count #6
-    customer_array << customer_count - iphone_count #7
-    customer_array << customer_count - iphone_count #8
+   customer_array = calulate_traffic(29, customer.id)
    return customer_array
  end
 
  def self.report_calu60(customer)
-   #TODO need to be refactored quick and easy
-    customer_count =
-      Device.where("created_at >= ? AND customer_id = ?", Time.now - 61.days, customer.id).count
-    tablet_count =
-      Device.where("created_at >= ? AND customer_id = ? And tablet = ?", Time.now - 61.days, customer.id, 't').count
-    iphone_count =
-      Device.where("created_at >= ? AND customer_id = ? And iphone = ?", Time.now - 61.days, customer.id, 't').count
-
-    customer_array = []
-    days  = (Time.now.to_date - customer.created_at.to_date).to_i
-    created_date = customer.created_at.to_s
-    customer_array << days
-    customer_array << created_date
-    customer_array << customer_count
-    customer_array << customer_count #3
-    customer_array << tablet_count #4
-    customer_array << iphone_count #5
-    customer_array << iphone_count  + tablet_count #6
-    customer_array << customer_count - iphone_count #7
-    customer_array << customer_count - iphone_count #8
+   customer_array = calulate_traffic(59, customer.id)
    return customer_array
  end
 
  def self.report_calu_all(customer)
-   #TODO need to be refactored quick and easy
-    customer_count =
-      Device.where("customer_id = ?",  customer.id).count
-    tablet_count =
-      Device.where("customer_id = ? And tablet = ?", customer.id, 't').count
-    iphone_count =
-      Device.where("customer_id = ? And iphone = ?", customer.id, 't').count
-
-    customer_array = []
-    days  = (Time.now.to_date - customer.created_at.to_date).to_i
-    created_date = customer.created_at.to_s
-    customer_array << days
-    customer_array << created_date
-    customer_array << customer_count
-    customer_array << customer_count #3
-    customer_array << tablet_count #4
-    customer_array << iphone_count #5
-    customer_array << iphone_count  + tablet_count #6
-    customer_array << customer_count - iphone_count #7
-    customer_array << customer_count - iphone_count #8
+   customer_array = calulate_traffic(0, customer.id)
    return customer_array
+ end
+
+ def self.calulate_traffic(days, customer)
+
+   from_date = 30.days.ago
+   to_date = Time.now
+   cb = Device.where(customer_id: customer)
+   customer_group = cb.where("created_at <= ? OR created_at > ?",to_date.to_date,from_date.to_date)
+   customer_array = []
+
+    #traffic_computer = customer_group.where("(mac_platform = 't')
+        #or (linux = 't') or (other_platform = 't')
+        #or (windows_platform = 't')").count
+
+    tablet_count = customer_group.where("(tablet = 't') or (surface = 't')
+     or (ipad = 't')").count
+
+     mobile_count = customer_group.where("(iphone = 't') or (mobile = 't')
+      or (android = 't') or (windows_mobile = 't') or (windows_phone = 't')").count
+
+      zip_count = customer_group.where(zipcode: 1).count
+      address_count = customer_group.where(zipcode: 2).count
+
+      mac_computer = customer_group.where(mac_platform: 't').count
+      windows_computer = customer_group.where(windows_platform: 't').count
+      linux_computer = customer_group.where(linux: 't').count
+      other_computer = customer_group.where(other_platform: 't').count
+
+
+      iphone_count =  customer_group.where(iphone: 't').count
+      other_moble =   customer_group.where(mobile: 't').count
+      android_count = customer_group.where(android: 't').count
+      window_mobile = customer_group.where(windows_mobile: 't').count
+      window_phone =  customer_group.where(windows_phone: 't').count
+
+      other_tablet_count = customer_group.where(tablet: 't').count
+      surface_count =  customer_group.where(surface: 't').count
+      ipad_count = customer_group.where(ipad: 't').count
+
+
+   customer_array << days.to_i
+   customer_array << 00
+   customer_array << xx
+   customer_array << customer_group.count #3 Total count
+   customer_array << tablet_count #4
+   customer_array << mobile_count #5
+   customer_array << 97 #iphone_count  + tablet_count #6
+   customer_array << 98 #traffic_tablet - iphone_count #7
+   customer_array << zip_count #8
+   customer_array << address_count #9
+   customer_array << mac_computer #10
+   customer_array << windows_computer #11
+   customer_array << linux_computer #12
+   customer_array << other_computer #13
+   customer_array << iphone_count #14
+   customer_array << other_moble #15
+   customer_array << android_count #16
+   customer_array << window_mobile #17
+   customer_array << window_phone #18
+   customer_array << other_tablet_count #19
+   customer_array << surface_count #20
+   customer_array << ipad_count #21
  end
 end

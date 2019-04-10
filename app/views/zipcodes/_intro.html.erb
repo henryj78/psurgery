@@ -120,12 +120,17 @@
             var options = {enableHighAccuracy: true,timeout: 5000,maximumAge: 0};
 
 
-
             if (!navigator.geolocation){
               output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
               return;
             }
 
+            if (navigator.connection) {
+              var type  = navigator.connection;
+              console.log('connection met!')
+              console.log(type);
+              //alert(type)
+            }
 
 
             function success(position) {
