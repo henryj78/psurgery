@@ -12,17 +12,15 @@ class ZipcodesController < ApplicationController
 
   def create
     #TODO Hijacked the create method
-
     @zipcode = Zipcode.new
-
-     @browser_lat =  params[:zipcode][:latitude]
-     @browser_long = params[:zipcode][:longitude]
+    @browser_lat =  params[:zipcode][:latitude]
+    @browser_long = params[:zipcode][:longitude]
 
     # ************************
     puts "******************************** @browser_lat : " + @browser_lat
     puts "******************************** @browser_long : " + @browser_long
 
-
+    #TODO Needs to refactor
       if params[:zipcode][:zipcode_name].nil?
         if @browser_lat != "" || @browser_long != ""
           @county_zip = browser_loc(@browser_lat,@browser_long )
@@ -32,6 +30,12 @@ class ZipcodesController < ApplicationController
         end
       else
         initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
+        uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
+        Zipcode.write_device_zip(browser, uri.id) if !uri.nil?
+        if uri.nil?
+          xcus = Customer.where(customer_url: @uri)
+          Zipcode.write_device_zaddress(browser, xcus[0].id) if !xcus.nil?
+        end
         change_url(@uri)
       end
    end
