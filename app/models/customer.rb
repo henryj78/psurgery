@@ -156,16 +156,20 @@ def self.write_customer_to_zone (customer)
  end
 
  def self.calulate_traffic(days, customer)
-
-   from_date = 30.days.ago
-   to_date = Time.now
    cb = Device.where(customer_id: customer)
-   customer_group = cb.where("created_at <= ? OR created_at > ?",to_date.to_date,from_date.to_date)
+
+   #customer_group = cb.where("created_at <= ? OR created_at >= ?",to_date.to_date,from_date.to_date)
+   if days == 0
+     customer_group = cb
+   else
+     from_date = days.days.ago
+     to_date = Time.now
+     customer_group = cb.where(["created_at >= ? AND created_at <= ?", from_date.beginning_of_day, to_date.end_of_day])
+   end
+
    customer_array = []
 
-    #traffic_computer = customer_group.where("(mac_platform = 't')
-        #or (linux = 't') or (other_platform = 't')
-        #or (windows_platform = 't')").count
+   traffic_computer = customer_group.count
 
     tablet_count = customer_group.where("(tablet = 't') or (surface = 't')
      or (ipad = 't')").count
@@ -192,15 +196,18 @@ def self.write_customer_to_zone (customer)
       surface_count =  customer_group.where(surface: 't').count
       ipad_count = customer_group.where(ipad: 't').count
 
+      desktop_count = mac_computer + windows_computer + linux_computer + other_computer
+      total_count = desktop_count + tablet_count + mobile_count + zip_count + address_count
+
 
    customer_array << days.to_i
    customer_array << 00
-   customer_array << xx
-   customer_array << customer_group.count #3 Total count
+   customer_array << 00
+   customer_array << desktop_count #3 Total count
    customer_array << tablet_count #4
    customer_array << mobile_count #5
-   customer_array << 97 #iphone_count  + tablet_count #6
-   customer_array << 98 #traffic_tablet - iphone_count #7
+   customer_array << tablet_count #6
+   customer_array << total_count #7
    customer_array << zip_count #8
    customer_array << address_count #9
    customer_array << mac_computer #10
