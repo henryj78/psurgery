@@ -197,7 +197,7 @@ def self.write_customer_to_zone (customer)
       ipad_count = customer_group.where(ipad: 't').count
 
       desktop_count = mac_computer + windows_computer + linux_computer + other_computer
-      total_count = desktop_count + tablet_count + mobile_count + zip_count + address_count
+      total_count = desktop_count + tablet_count + mobile_count 
 
 
    customer_array << days.to_i

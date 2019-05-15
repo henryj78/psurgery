@@ -12,33 +12,23 @@ class ZipcodesController < ApplicationController
 
   def create
     #TODO Hijacked the create method
-    @zipcode = Zipcode.new
-    @browser_lat =  params[:zipcode][:latitude]
-    @browser_long = params[:zipcode][:longitude]
+      @zipcode = Zipcode.new
+      @browser_lat =  params[:zipcode][:latitude]
+      @browser_long = params[:zipcode][:longitude]
 
-    # ************************
-    puts "******************************** @browser_lat : " + @browser_lat
-    puts "******************************** @browser_long : " + @browser_long
+      zipcode = params[:zipcode][:zip_code]
+      county = params[:zipcode][:zipcode_name]
+      puts "******************************** @browser_lat : " + @browser_lat
+      puts "******************************** @browser_long : " + @browser_long
 
-    #TODO Needs to refactor
-      if params[:zipcode][:zipcode_name].nil?
-        if @browser_lat != "" || @browser_long != ""
-          @county_zip = browser_loc(@browser_lat,@browser_long )
-          @county = ""
-          initilize(@county_zip,@county)
-          change_url(@uri)
-        end
+      if !@browser_lat.empty?
+       @uri = customer_uri(@browser_lat,@browser_long)
       else
-        initilize(params[:zipcode][:zip_code],params[:zipcode][:zipcode_name])
-        uri = Zipcode.find_customer_url(params[:zipcode][:zip_code].to_i)
-        Zipcode.write_device_zip(browser, uri.id) if !uri.nil?
-        if uri.nil?
-          xcus = Customer.where(customer_url: @uri)
-          Zipcode.write_device_zaddress(browser, xcus[0].id) if !xcus.nil?
-        end
-        change_url(@uri)
+        @uri = customer_choice_uri(zipcode,county)
+        write_customer_device(zipcode,county, @uri, browser)
       end
-   end
+      change_url(@uri)
+    end
 
 
   def aws_hits
@@ -68,10 +58,41 @@ class ZipcodesController < ApplicationController
     end
   end
 
+
+
+
   private
 
-  def initilize(zipcode, city)
+  def customer_choice_uri(zipcode, county)
+    @uri = initilize(zipcode,county)
+     if @uri != 'https://lease.cosmeticsurgery.com/' 
+        xcus = Customer.where(customer_url: @uri)
+     end
+     return @uri
+  end
 
+
+  def customer_uri(browser_lat,browser_long )
+    @county_zip = browser_loc(browser_lat,browser_long )
+    if @county_zip.nil?
+      @uri = 'https://lease.cosmeticsurgery.com/'
+    else
+      initilize(@county_zip,"")
+    end
+  end
+
+  def write_customer_device(zipcode,county, uri, browser)
+     uri_id = Customer.where(customer_url: uri)
+     if !uri_id.empty?
+      if county.empty?
+        Zipcode.write_device_zip(browser, uri_id[0].id)
+      else
+        Zipcode.write_device_zaddress(browser, uri_id[0].id)
+      end
+     end
+  end
+
+  def initilize(zipcode, city)
     if zipcode.size == 0 and city.size == 0
      @uri = 'https://lease.cosmeticsurgery.com/'
     else
